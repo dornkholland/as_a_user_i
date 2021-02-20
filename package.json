@@ -1,5 +1,5 @@
 {
-  "name": "fast_dev",
+  "name": "as_a_user_i",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dornkholland/Authenticate_Me.git"
+    "url": "git+https://github.com/dornkholland/as_a_user_i.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dornkholland/Authenticate_Me/issues"
+    "url": "https://github.com/dornkholland/as_a_user_i/issues"
   },
-  "homepage": "https://github.com/dornkholland/Authenticate_Me#readme"
+  "homepage": "https://github.com/dornkholland/as_a_user_i#readme"
 }
