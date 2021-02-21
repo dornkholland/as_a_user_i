@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      name: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
       username: {
         type: Sequelize.STRING(30),
         allowNull: false,
@@ -38,4 +42,3 @@ module.exports = {
     return queryInterface.dropTable("Users");
   },
 };
-
