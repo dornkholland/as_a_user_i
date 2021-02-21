@@ -9,18 +9,21 @@ module.exports = {
       [
         {
           email: "demo@user.io",
-          username: "Demo-lition",
+          username: "demoUser",
+          name: "Demo User",
           hashedPassword: bcrypt.hashSync("password"),
         },
         {
           email: faker.internet.email(),
           username: "FakeUser1",
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          name: "Dwight Schrute",
+          hashedPassword: bcrypt.hashSync("password"),
         },
         {
           email: faker.internet.email(),
           username: "FakeUser2",
-          hashedPassword: bcrypt.hashSync(faker.internet.password()),
+          name: "Michael Scott",
+          hashedPassword: bcrypt.hashSync("password"),
         },
       ],
       {}
