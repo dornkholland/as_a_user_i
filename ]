@@ -1,0 +1,7 @@
+.hero {
+  height: 1000px;
+  width: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));
+}

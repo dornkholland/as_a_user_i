@@ -1,0 +1,57 @@
+body {
+  background-color: orange;
+}
+
+/* hero styling*/
+.hero {
+  position: relative;
+  height: 800px;
+}
+.hero__image {
+  height: 800px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /*background: linear-gradient(to left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8));*/
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero__content {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1),
+    /*rgba(255, 255, 255, 0.9)*/ rgba(255, 255, 255, 0.9)
+  );
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.hero__content span {
+  color: orange;
+}
+
+.hero__content h1,
+h2 {
+  margin: 30px;
+}
+.hero__content h2 {
+  font-size: 30px;
+}
+
+.content__signup a {
+  font-size: 1.5em;
+  margin: 0 auto;
+  padding: 5px;
+  height: 60px;
+  width: 200px;
+  color: white;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
