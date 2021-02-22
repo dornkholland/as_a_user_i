@@ -23,8 +23,8 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <div>
-      <NavLink exact to="/">
+    <div className="navbar">
+      <NavLink className="navbar__logo" exact to="/">
         <Logo />
       </NavLink>
       {isLoaded && sessionLinks}

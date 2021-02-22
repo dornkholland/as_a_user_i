@@ -3,8 +3,28 @@
 /* TODO Add site wide styles */
 a {
   text-decoration: none;
+  font-size: 18px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #f39e40;
+  /*background-color: #f39e40;*/
+  display: flex;
+  align-items: center;
+  border: 1px solid #f39e40;
+  height: 34px;
 }
 
 * {
   font-family: "Open Sans", sans-serif;
+}
+
+button {
+  box-sizing: border-box;
+  height: 34px;
+  color: white;
+  background-color: #00b2c1;
+  border-radius: 3px;
+  padding: 0px 10px;
+  border: none;
+  font-size: 18px;
 }
