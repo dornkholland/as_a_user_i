@@ -17,7 +17,6 @@ function App() {
     <>
       {isLoaded && (
         <div>
-          <Navigation isLoaded={isLoaded} />
           <Switch>
             <Route path="/login">
               <LoginFormPage />
@@ -26,6 +25,7 @@ function App() {
               <SignupFormPage />
             </Route>
             <Route exact path="/">
+              <Navigation isLoaded={isLoaded} />
               <Landing />
             </Route>
           </Switch>
