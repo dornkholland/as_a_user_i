@@ -15,6 +15,7 @@ const setProject = (project) => {
 export const getProjects = () => async (dispatch) => {
   const response = await csrfFetch("/api/projects");
   const data = await response.json();
+  console.log("here", data);
   dispatch(setProject(data.project));
   return response;
 };
@@ -26,6 +27,8 @@ const projectsReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.project = action.payload;
       return newState;
+    default:
+      return state;
   }
 };
 

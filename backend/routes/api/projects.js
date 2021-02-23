@@ -1,12 +1,20 @@
 const router = require("express").Router();
-const {projects} = require("../../db/models")
+const { Project } = require("../../db/models");
+const { restoreUser } = require("../../utils/auth");
+const asyncHandler = require("express-async-handler");
 
-router.get("/", (req, res) => {
-  const { user } = req;
-  if (user) {
-    const projects = 
-    return res.json({
-      user: user.toSafeObject(),
-    });
-  } else return res.json({});
-});
+router.get(
+  "/",
+  restoreUser,
+  asyncHandler(async (req, res) => {
+    const { user } = req;
+    if (user) {
+      const stuff = await Project.getOwnedProjects(user.id);
+      return res.json({
+        project: stuff,
+      });
+    } else return res.json({});
+  })
+);
+
+module.exports = router;

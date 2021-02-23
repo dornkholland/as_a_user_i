@@ -38,5 +38,14 @@ module.exports = (sequelize, DataTypes) => {
     Project.hasMany(models.UserProject, { foreignKey: "projectId" });
     Project.belongsTo(models.User, { foreignKey: "ownerId" });
   };
+  Project.getOwnedProjects = async function (userId) {
+    const projects = await Project.findAll({
+      where: {
+        ownerId: userId,
+      },
+    });
+    console.log("important", projects);
+    return projects;
+  };
   return Project;
 };
