@@ -2,6 +2,7 @@ import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ProjectCard from "./ProjectCard";
+import ProjectForm from "./ProjectForm";
 import * as projectActions from "../../store/project";
 
 function ProjectDash() {
@@ -12,13 +13,12 @@ function ProjectDash() {
   useEffect(() => {
     const response = dispatch(projectActions.getProjects());
   }, []);
+
   if (!sessionUser) return <Redirect to="/" />;
   return (
     sessionProject && (
       <div className="dashContainer">
-        <button onClick={handleCreateProject} className="addProject">
-          Create a Project
-        </button>
+        <ProjectForm />
         <div className="owned">
           <h1>Owned Projects</h1>
           <div className="owned__container"></div>

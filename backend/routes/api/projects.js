@@ -4,6 +4,7 @@ const { restoreUser } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
+// route for getting projects on project dash
 router.get(
   "/",
   restoreUser,
@@ -45,6 +46,22 @@ router.get(
         projects: allProjects,
       });
     } else return res.json();
+  })
+);
+
+// Route for create project on project dash
+router.post(
+  "/",
+  restoreUser,
+  asyncHandler(async (req, res) => {
+    const { user } = req;
+    /* query to create project in projects table */
+    const res1 = await Project.createProject(user.id, req.body.projectName);
+    const projectId = res1.dataValues.id;
+    const res2 = await UserProject.createProject(user.id, projectId);
+    // query to create project in userprojects table
+    const results = { res1, res2 };
+    return res.json(results);
   })
 );
 

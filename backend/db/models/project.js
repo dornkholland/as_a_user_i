@@ -47,5 +47,13 @@ module.exports = (sequelize, DataTypes) => {
     });
     return projects;
   };
+  Project.createProject = async function (userId, projectName) {
+    const projects = await Project.create({
+      name: projectName,
+      ownerId: userId,
+    });
+    return projects;
+  };
+
   return Project;
 };

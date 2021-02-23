@@ -19,6 +19,20 @@ export const getProjects = () => async (dispatch) => {
   return response;
 };
 
+export const createProject = (project) => async (dispatch) => {
+  const { projectName } = project;
+  const response = await csrfFetch("/api/projects", {
+    method: "POST",
+    body: JSON.stringify({
+      projectName,
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+  //dispatch(setProject(data.projects));
+  return response;
+};
+
 const projectsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
