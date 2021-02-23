@@ -9,9 +9,12 @@ router.get(
   asyncHandler(async (req, res) => {
     const { user } = req;
     if (user) {
-      const stuff = await Project.getOwnedProjects(user.id);
+      const owned = await Project.getOwnedProjects(user.id);
+      const allProjects = {
+        owned,
+      };
       return res.json({
-        project: stuff,
+        projects: allProjects,
       });
     } else return res.json({});
   })
