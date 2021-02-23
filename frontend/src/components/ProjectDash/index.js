@@ -14,24 +14,37 @@ function ProjectDash() {
   }, []);
   if (!sessionUser) return <Redirect to="/" />;
   return (
-    <div className="dashContainer">
-      <div className="owned">
-        <h1>My Projects</h1>
-        <div className="owned__container"></div>
-        {sessionProject
-          ? sessionProject.owned.map((project) => {
-              return (
-                <ProjectCard
-                  name={project.name}
-                  owner={sessionUser.name}
-                  lastUpdated={project.updatedAt.slice(0, 10)}
-                />
-              );
-            })
-          : null}
+    sessionProject && (
+      <div className="dashContainer">
+        <button onClick={handleCreateProject} className="addProject">
+          Create a Project
+        </button>
+        <div className="owned">
+          <h1>Owned Projects</h1>
+          <div className="owned__container"></div>
+          {sessionProject.owned.map((project) => {
+            return (
+              <ProjectCard
+                name={project.name}
+                owner={sessionUser.name}
+                lastUpdated={project.updatedAt.slice(0, 10)}
+              />
+            );
+          })}
+        </div>
+        <h1>Collaborating Projects</h1>
+        <div className="collab"></div>
+        {sessionProject.collab.map((project) => {
+          return (
+            <ProjectCard
+              name={project.name}
+              owner={project.ownerName}
+              lastUpdated={project.updatedAt.slice(0, 10)}
+            />
+          );
+        })}
       </div>
-      <div className="collab"></div>
-    </div>
+    )
   );
 }
 

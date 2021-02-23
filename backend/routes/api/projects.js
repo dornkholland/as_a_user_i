@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Project, UserProject } = require("../../db/models");
+const { Project, User, UserProject } = require("../../db/models");
 const { restoreUser } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
@@ -27,9 +27,19 @@ router.get(
           },
         ],
       });
+      const tempCollab = await Promise.all(
+        collab.map(async (ele) => {
+          const data = ele;
+          const owner = await User.findByPk(ele.dataValues.ownerId);
+          const ownerName = owner.dataValues.name;
+          data.dataValues.ownerName = ownerName;
+          return data;
+        })
+      );
+
       const allProjects = {
         owned,
-        collab,
+        collab: tempCollab,
       };
       return res.json({
         projects: allProjects,
