@@ -2,11 +2,18 @@ import { csrfFetch } from "./csrf";
 const initialState = { projects: null };
 
 const SET_PROJECT = "project/setProject";
+const ADD_PROJECT = "project/addProject";
 
 /*set project action creator */
 const setProject = (project) => {
   return {
     type: SET_PROJECT,
+    payload: project,
+  };
+};
+const addProject = (project) => {
+  return {
+    type: ADD_PROJECT,
     payload: project,
   };
 };
@@ -28,8 +35,7 @@ export const createProject = (project) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  console.log(data);
-  //dispatch(setProject(data.projects));
+  dispatch(addProject(data.newProject));
   return response;
 };
 
@@ -39,6 +45,10 @@ const projectsReducer = (state = initialState, action) => {
     case SET_PROJECT:
       newState = Object.assign({}, state);
       newState.projects = action.payload;
+      return newState;
+    case ADD_PROJECT:
+      newState = Object.assign({}, state);
+      newState.projects.owned = [...newState.projects.owned, action.payload];
       return newState;
     default:
       return state;

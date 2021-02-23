@@ -56,11 +56,14 @@ router.post(
   asyncHandler(async (req, res) => {
     const { user } = req;
     /* query to create project in projects table */
-    const res1 = await Project.createProject(user.id, req.body.projectName);
-    const projectId = res1.dataValues.id;
-    const res2 = await UserProject.createProject(user.id, projectId);
+    const newProject = await Project.createProject(
+      user.id,
+      req.body.projectName
+    );
+    const projectId = newProject.dataValues.id;
+    const newUserProject = await UserProject.createProject(user.id, projectId);
     // query to create project in userprojects table
-    const results = { res1, res2 };
+    const results = { newProject, newUserProject };
     return res.json(results);
   })
 );

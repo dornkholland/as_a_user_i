@@ -22,15 +22,17 @@ function ProjectDash() {
         <div className="owned">
           <h1>Owned Projects</h1>
           <div className="owned__container"></div>
-          {sessionProject.owned.map((project) => {
-            return (
-              <ProjectCard
-                name={project.name}
-                owner={sessionUser.name}
-                lastUpdated={project.updatedAt.slice(0, 10)}
-              />
-            );
-          })}
+          {sessionProject
+            ? sessionProject.owned.map((project) => {
+                return (
+                  <ProjectCard
+                    name={project.name}
+                    owner={sessionUser.name}
+                    lastUpdated={project.updatedAt.slice(0, 10)}
+                  />
+                );
+              })
+            : null}
         </div>
         <h1>Collaborating Projects</h1>
         <div className="collab"></div>
