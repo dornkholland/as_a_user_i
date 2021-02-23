@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const { Project } = require("../../db/models");
+const { Project, UserProject } = require("../../db/models");
 const { restoreUser } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
+const { Op } = require("sequelize");
 
 router.get(
   "/",
@@ -10,13 +11,30 @@ router.get(
     const { user } = req;
     if (user) {
       const owned = await Project.getOwnedProjects(user.id);
+      /*query for projects that are not owned but collaborated for a user */
+      const collab = await Project.findAll({
+        where: {
+          [Op.not]: {
+            ownerId: user.id,
+          },
+        },
+        include: [
+          {
+            model: UserProject,
+            where: {
+              userId: user.id,
+            },
+          },
+        ],
+      });
       const allProjects = {
         owned,
+        collab,
       };
       return res.json({
         projects: allProjects,
       });
-    } else return res.json({});
+    } else return res.json();
   })
 );
 

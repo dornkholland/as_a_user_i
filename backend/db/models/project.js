@@ -1,3 +1,4 @@
+const UserProject = require("../models/userproject");
 const { Validator } = require("sequelize");
 ("use strict");
 module.exports = (sequelize, DataTypes) => {
@@ -44,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
         ownerId: userId,
       },
     });
-    console.log("important", projects);
     return projects;
   };
   return Project;
