@@ -1,10 +1,16 @@
 import { Redirect } from "react-router-dom";
-import * as sessionActions from "../../store/session";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ProjectCard from "./ProjectCard";
 import "./ProjectDash.css";
+import * as projectActions from "../../store/project";
 
 function ProjectDash() {
+  const dispatch = useDispatch();
+  //const projects = useSelector((state) => state.projects.project);
+  useEffect(() => {
+    dispatch(projectActions.getProjects());
+  }, []);
   const sessionUser = useSelector((state) => state.session.user);
   if (!sessionUser) return <Redirect to="/" />;
   return (
