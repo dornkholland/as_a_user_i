@@ -52,6 +52,15 @@ export const editProject = (project) => async (dispatch) => {
   return dispatch(setProject(data.projects));
 };
 
+export const deleteProject = (project) => async (dispatch) => {
+  const { projectId, projectName } = project;
+  const response = await csrfFetch(`/api/projects/${projectId}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  return dispatch(setProject(data.projects));
+};
+
 const projectsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
