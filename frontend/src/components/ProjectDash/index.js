@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectForm from "./ProjectForm";
 import * as projectActions from "../../store/project";
+import "./ProjectDash.css";
 
 function ProjectDash() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ function ProjectDash() {
         </ul>
       </div>
       <h1>Collaborating Projects</h1>
-      <ul className="collab">
+      <ul className="collab__container">
         {collab.map((project) => {
           return (
             <li key={project.id}>

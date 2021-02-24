@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ProjectEditForm from "./ProjectEditForm";
 import * as projectActions from "../../store/project";
@@ -14,7 +15,7 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   };
   return (
     <div className="projectCard">
-      {!editing ? <h1>{name}</h1> : null}
+      {!editing ? <Link to="">{name}</Link> : null}
       {editing ? (
         <div>
           <ProjectEditForm
