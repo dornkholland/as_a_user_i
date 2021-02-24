@@ -1,0 +1,26 @@
+/* Indiviual card stylings */
+body {
+  background-color: #ffa45b;
+}
+
+.owned__container,
+.collab__container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.projectCard {
+  border: 1px solid black;
+  background-color: #ffebdb;
+  width: 500px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.projectCard a {
+  width: auto;
+  height: auto;
+  color: #25424c;
+  font-size: 34px;
+  font-weight: bold;
+  border: none;
+}

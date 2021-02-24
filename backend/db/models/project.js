@@ -1,3 +1,4 @@
+const UserProject = require("../models/userproject");
 const { Validator } = require("sequelize");
 ("use strict");
 module.exports = (sequelize, DataTypes) => {
@@ -8,27 +9,27 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           len: [3, 20],
         },
       },
       ownerId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: "Users" },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
       },
     },
     {}
@@ -38,6 +39,36 @@ module.exports = (sequelize, DataTypes) => {
     Project.hasMany(models.UserProject, { foreignKey: "projectId" });
     Project.belongsTo(models.User, { foreignKey: "ownerId" });
   };
+  Project.getOwnedProjects = async function (userId) {
+    const projects = await Project.findAll({
+      where: {
+        ownerId: userId,
+      },
+      order: [["id", "DESC"]],
+    });
+    return projects;
+  };
+  Project.createProject = async function (userId, projectName) {
+    const projects = await Project.create({
+      name: projectName,
+      ownerId: userId,
+    });
+    return projects;
+  };
+  Project.editProject = async function (projectId, projectName) {
+    const project = await Project.findByPk(projectId);
+    project.name = projectName;
+    await project.save();
+    return project;
+  };
+  Project.deleteProject = async function (projectId) {
+    const project = await Project.destroy({
+      where: {
+        id: projectId,
+      },
+    });
+    return project;
+  };
+
   return Project;
 };
-

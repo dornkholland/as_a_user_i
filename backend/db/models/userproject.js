@@ -35,6 +35,19 @@ module.exports = (sequelize, DataTypes) => {
     UserProject.belongsTo(models.User, { foreignKey: "userId" });
     UserProject.belongsTo(models.Project, { foreignKey: "projectId" });
   };
+  UserProject.createProject = async function (userId, projectId) {
+    const projects = await UserProject.create({
+      userId,
+      projectId,
+    });
+  };
+  UserProject.deleteProject = async function (projectId) {
+    const projects = await UserProject.destroy({
+      where: {
+        projectId,
+      },
+    });
+    return projects;
+  };
   return UserProject;
 };
-
