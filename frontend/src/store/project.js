@@ -48,8 +48,12 @@ const projectsReducer = (state = initialState, action) => {
       return newState;
     case ADD_PROJECT:
       newState = Object.assign({}, state);
-      newState.projects.owned = [...newState.projects.owned, action.payload];
-      return newState;
+      const newOwned = {
+        owned: [...newState.projects.owned, action.payload],
+      };
+      const temp = Object.assign({}, newState.projects.collab, newOwned);
+      const copyState = Object.assign({}, newState, { projects: temp });
+      return copyState;
     default:
       return state;
   }

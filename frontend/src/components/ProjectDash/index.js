@@ -1,6 +1,6 @@
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectForm from "./ProjectForm";
 import * as projectActions from "../../store/project";
@@ -8,11 +8,18 @@ import * as projectActions from "../../store/project";
 function ProjectDash() {
   const dispatch = useDispatch();
   const sessionProject = useSelector((state) => state.project.projects);
-  console.log(sessionProject);
   const sessionUser = useSelector((state) => state.session.user);
+  const [owned, setOwned] = useState([]);
+  const [collab, setCollab] = useState([]);
   useEffect(() => {
     const response = dispatch(projectActions.getProjects());
-  }, []);
+  }, [dispatch]);
+  useEffect(() => {
+    if (sessionProject) {
+      setOwned(sessionProject.owned);
+      setCollab(sessionProject.collab);
+    }
+  }, [sessionProject]);
 
   if (!sessionUser) return <Redirect to="/" />;
   return (
@@ -21,30 +28,38 @@ function ProjectDash() {
         <ProjectForm />
         <div className="owned">
           <h1>Owned Projects</h1>
-          <div className="owned__container"></div>
-          {sessionProject
-            ? sessionProject.owned.map((project) => {
+          <ul className="owned__container">
+            {owned
+              ? owned.map((project) => {
+                  return (
+                    <li key={project.id}>
+                      <ProjectCard
+                        name={project.name}
+                        owner={sessionUser.name}
+                        lastUpdated={project.updatedAt.slice(0, 10)}
+                      />
+                    </li>
+                  );
+                })
+              : null}
+          </ul>
+        </div>
+        <h1>Collaborating Projects</h1>
+        <ul className="collab">
+          {collab
+            ? collab.map((project) => {
                 return (
-                  <ProjectCard
-                    name={project.name}
-                    owner={sessionUser.name}
-                    lastUpdated={project.updatedAt.slice(0, 10)}
-                  />
+                  <li key={project.id}>
+                    <ProjectCard
+                      name={project.name}
+                      owner={project.ownerName}
+                      lastUpdated={project.updatedAt.slice(0, 10)}
+                    />
+                  </li>
                 );
               })
             : null}
-        </div>
-        <h1>Collaborating Projects</h1>
-        <div className="collab"></div>
-        {sessionProject.collab.map((project) => {
-          return (
-            <ProjectCard
-              name={project.name}
-              owner={project.ownerName}
-              lastUpdated={project.updatedAt.slice(0, 10)}
-            />
-          );
-        })}
+        </ul>
       </div>
     )
   );
