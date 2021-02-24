@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import cloneDeep from "lodash/cloneDeep";
 const initialState = { projects: { owned: [], collab: [] } };
 
 const SET_PROJECT = "project/setProject";
@@ -78,22 +79,15 @@ const projectsReducer = (state = initialState, action) => {
       newState.projects = action.payload;
       return newState;
     case ADD_PROJECT:
-      newState = Object.assign({}, state);
-      const newOwned = {
-        owned: [...newState.projects.owned, action.payload],
-      };
-      const temp = Object.assign({}, newState.projects, newOwned);
-      const copyState = Object.assign({}, newState, { projects: temp });
-      return copyState;
+      newState = JSON.parse(JSON.stringify(state));
+      newState.projects.owned.unshift(action.payload);
+      return newState;
     case REMOVE_PROJECT:
-      newState = Object.assign({}, state);
-      const toDelete = action.payload;
-      const owned = newState.projects.owned.filter(
-        (project) => project.id !== toDelete
+      newState = JSON.parse(JSON.stringify(state));
+      newState.projects.owned = newState.projects.owned.filter(
+        (project) => project.id !== action.payload
       );
-      const temp1 = Object.assign({}, newState.projects, { owned });
-      const copyStateRemove = Object.assign({}, newState, { projects: temp1 });
-      return copyStateRemove;
+      return newState;
     default:
       return state;
   }
