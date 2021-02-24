@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import ProjectEditForm from "./ProjectEditForm";
+import * as projectActions from "../../store/project";
 function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
+  const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
 
   const handleEdit = () => {
     setEditing((prev) => !prev);
   };
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = async () => {
+    await dispatch(projectActions.deleteProject(id));
   };
   return (
     <div className="projectCard">

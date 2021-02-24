@@ -3,6 +3,7 @@ const initialState = { projects: null };
 
 const SET_PROJECT = "project/setProject";
 const ADD_PROJECT = "project/addProject";
+const REMOVE_PROJECT = "project/removeProject";
 
 /*set project action creator */
 const setProject = (project) => {
@@ -14,6 +15,13 @@ const setProject = (project) => {
 const addProject = (project) => {
   return {
     type: ADD_PROJECT,
+    payload: project,
+  };
+};
+
+const removeProject = (project) => {
+  return {
+    type: REMOVE_PROJECT,
     payload: project,
   };
 };
@@ -53,12 +61,13 @@ export const editProject = (project) => async (dispatch) => {
 };
 
 export const deleteProject = (project) => async (dispatch) => {
-  const { projectId, projectName } = project;
-  const response = await csrfFetch(`/api/projects/${projectId}`, {
-    method: "DELETE",
-  });
-  const data = await response.json();
-  return dispatch(setProject(data.projects));
+  console.log("lit, this is working");
+  const { projectId } = project;
+  //const response = await csrfFetch(`/api/projects/${projectId}`, {
+  //method: "DELETE",
+  //});
+  //const data = await response.json();
+  //return dispatch(deleteProject(data.project));
 };
 
 const projectsReducer = (state = initialState, action) => {
@@ -76,6 +85,13 @@ const projectsReducer = (state = initialState, action) => {
       const temp = Object.assign({}, newState.projects, newOwned);
       const copyState = Object.assign({}, newState, { projects: temp });
       return copyState;
+    case REMOVE_PROJECT:
+      newState = Object.assign({}, state);
+      const toDelete = action.payload.id;
+      newState.projects.owned = newState.project.owned.filter(
+        (project) => project.id !== toDelete
+      );
+      return newState;
     default:
       return state;
   }
