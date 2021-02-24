@@ -40,6 +40,18 @@ export const createProject = (project) => async (dispatch) => {
   return response;
 };
 
+export const editProject = (project) => async (dispatch) => {
+  const { projectId, projectName } = project;
+  const response = await csrfFetch(`/api/projects/${projectId}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      projectName,
+    }),
+  });
+  const data = await response.json();
+  return dispatch(setProject(data.projects));
+};
+
 const projectsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {

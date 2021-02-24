@@ -34,6 +34,7 @@ function ProjectDash() {
                   return (
                     <li key={project.id}>
                       <ProjectCard
+                        id={project.id}
                         name={project.name}
                         owner={sessionUser.name}
                         lastUpdated={project.updatedAt.slice(0, 10)}

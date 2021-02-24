@@ -1,12 +1,17 @@
 import * as projectActions from "../../store/project";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-function ProjectEditForm({ name }) {
+function ProjectEditForm({ projectId, name, editing, setEditing }) {
   const [projectName, setProjectName] = useState(name);
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //return dispatch(projectActions.editProject({ projectName }));
+    await dispatch(projectActions.editProject({ projectId, projectName }));
+    setEditing((prev) => !prev);
+  };
+  const handleCancelEdit = (e) => {
+    e.preventDefault();
+    setEditing((prev) => !prev);
   };
   return (
     <div className="projectEditor">
@@ -19,6 +24,7 @@ function ProjectEditForm({ name }) {
           type="text"
         />
         <button type="submit">submit changes</button>
+        <button onClick={handleCancelEdit}>Cancel Changes </button>
       </form>
     </div>
   );

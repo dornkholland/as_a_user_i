@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         ownerId: userId,
       },
+      order: [["id", "DESC"]],
     });
     return projects;
   };
@@ -53,6 +54,12 @@ module.exports = (sequelize, DataTypes) => {
       ownerId: userId,
     });
     return projects;
+  };
+  Project.editProject = async function (projectId, projectName) {
+    const project = await Project.findByPk(projectId);
+    project.name = projectName;
+    await project.save();
+    return project;
   };
 
   return Project;

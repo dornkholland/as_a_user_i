@@ -1,11 +1,7 @@
 import { useState } from "react";
 import ProjectEditForm from "./ProjectEditForm";
-function ProjectCard({ name, owner, lastUpdated, isOwned }) {
+function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   const [editing, setEditing] = useState(false);
-
-  const handleCancelEdit = () => {
-    setEditing((prev) => !prev);
-  };
 
   const handleEdit = () => {
     setEditing((prev) => !prev);
@@ -17,10 +13,14 @@ function ProjectCard({ name, owner, lastUpdated, isOwned }) {
     <div className="projectCard">
       {!editing ? <h1>{name}</h1> : null}
       {editing ? (
-        <>
-          <ProjectEditForm name={name} />
-          <button onClick={handleCancelEdit}>Cancel Changes </button>
-        </>
+        <div>
+          <ProjectEditForm
+            projectId={id}
+            name={name}
+            editing={editing}
+            setEditing={setEditing}
+          />
+        </div>
       ) : null}
       <h2>Owned by: {owner}</h2>
       <h3>last updated: {lastUpdated}</h3>
