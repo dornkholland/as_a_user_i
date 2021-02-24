@@ -26,6 +26,7 @@ export const getProjects = () => async (dispatch) => {
   return response;
 };
 
+/* create a project */
 export const createProject = (project) => async (dispatch) => {
   const { projectName } = project;
   const response = await csrfFetch("/api/projects", {

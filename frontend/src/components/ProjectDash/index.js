@@ -37,6 +37,7 @@ function ProjectDash() {
                         name={project.name}
                         owner={sessionUser.name}
                         lastUpdated={project.updatedAt.slice(0, 10)}
+                        isOwned={true}
                       />
                     </li>
                   );
@@ -54,6 +55,7 @@ function ProjectDash() {
                       name={project.name}
                       owner={project.ownerName}
                       lastUpdated={project.updatedAt.slice(0, 10)}
+                      isOwned={false}
                     />
                   </li>
                 );
