@@ -19,52 +19,46 @@ function ProjectDash() {
       setOwned(sessionProject.owned);
       setCollab(sessionProject.collab);
     }
-  }, [sessionProject]);
+  }, [sessionProject.owned]);
 
   if (!sessionUser) return <Redirect to="/" />;
   return (
-    sessionProject && (
-      <div className="dashContainer">
-        <ProjectForm />
-        <div className="owned">
-          <h1>Owned Projects</h1>
-          <ul className="owned__container">
-            {owned
-              ? owned.map((project) => {
-                  return (
-                    <li key={project.id}>
-                      <ProjectCard
-                        id={project.id}
-                        name={project.name}
-                        owner={sessionUser.name}
-                        lastUpdated={project.updatedAt.slice(0, 10)}
-                        isOwned={true}
-                      />
-                    </li>
-                  );
-                })
-              : null}
-          </ul>
-        </div>
-        <h1>Collaborating Projects</h1>
-        <ul className="collab">
-          {collab
-            ? collab.map((project) => {
-                return (
-                  <li key={project.id}>
-                    <ProjectCard
-                      name={project.name}
-                      owner={project.ownerName}
-                      lastUpdated={project.updatedAt.slice(0, 10)}
-                      isOwned={false}
-                    />
-                  </li>
-                );
-              })
-            : null}
+    <div className="dashContainer">
+      <ProjectForm />
+      <div className="owned">
+        <h1>Owned Projects</h1>
+        <ul className="owned__container">
+          {sessionProject.owned.map((project) => {
+            return (
+              <li key={project.id}>
+                <ProjectCard
+                  id={project.id}
+                  name={project.name}
+                  owner={sessionUser.name}
+                  lastUpdated={project.updatedAt.slice(0, 10)}
+                  isOwned={true}
+                />
+              </li>
+            );
+          })}
         </ul>
       </div>
-    )
+      <h1>Collaborating Projects</h1>
+      <ul className="collab">
+        {collab.map((project) => {
+          return (
+            <li key={project.id}>
+              <ProjectCard
+                name={project.name}
+                owner={project.ownerName}
+                lastUpdated={project.updatedAt.slice(0, 10)}
+                isOwned={false}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 

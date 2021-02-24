@@ -115,4 +115,19 @@ router.patch(
   })
 );
 
+router.delete(
+  "/:projectId",
+  asyncHandler(async (req, res) => {
+    const { projectId } = req.params;
+    //delete all instances of project from userproject table
+    await UserProject.deleteProject(projectId);
+    //delete all instances of project from project table
+    await Project.deleteProject(projectId);
+    //return specific deleted project from project table
+    return res.json({
+      project: projectId,
+    });
+  })
+);
+
 module.exports = router;

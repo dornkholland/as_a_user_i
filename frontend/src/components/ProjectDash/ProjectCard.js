@@ -10,7 +10,7 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
     setEditing((prev) => !prev);
   };
   const handleDelete = async () => {
-    await dispatch(projectActions.deleteProject(id));
+    dispatch(projectActions.deleteProject({ id }));
   };
   return (
     <div className="projectCard">

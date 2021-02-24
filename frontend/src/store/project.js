@@ -1,5 +1,5 @@
 import { csrfFetch } from "./csrf";
-const initialState = { projects: null };
+const initialState = { projects: { owned: [], collab: [] } };
 
 const SET_PROJECT = "project/setProject";
 const ADD_PROJECT = "project/addProject";
@@ -61,13 +61,13 @@ export const editProject = (project) => async (dispatch) => {
 };
 
 export const deleteProject = (project) => async (dispatch) => {
-  console.log("lit, this is working");
-  const { projectId } = project;
-  //const response = await csrfFetch(`/api/projects/${projectId}`, {
-  //method: "DELETE",
-  //});
-  //const data = await response.json();
-  //return dispatch(deleteProject(data.project));
+  const { id } = project;
+  const response = await csrfFetch(`/api/projects/${id}`, {
+    method: "DELETE",
+  });
+  const data = await response.json();
+  console.log(data);
+  return dispatch(removeProject(Number(data.project)));
 };
 
 const projectsReducer = (state = initialState, action) => {
@@ -87,11 +87,13 @@ const projectsReducer = (state = initialState, action) => {
       return copyState;
     case REMOVE_PROJECT:
       newState = Object.assign({}, state);
-      const toDelete = action.payload.id;
-      newState.projects.owned = newState.project.owned.filter(
+      const toDelete = action.payload;
+      const owned = newState.projects.owned.filter(
         (project) => project.id !== toDelete
       );
-      return newState;
+      const temp1 = Object.assign({}, newState.projects, { owned });
+      const copyStateRemove = Object.assign({}, newState, { projects: temp1 });
+      return copyStateRemove;
     default:
       return state;
   }
