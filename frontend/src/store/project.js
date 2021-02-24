@@ -51,7 +51,7 @@ const projectsReducer = (state = initialState, action) => {
       const newOwned = {
         owned: [...newState.projects.owned, action.payload],
       };
-      const temp = Object.assign({}, newState.projects.collab, newOwned);
+      const temp = Object.assign({}, newState.projects, newOwned);
       const copyState = Object.assign({}, newState, { projects: temp });
       return copyState;
     default:
