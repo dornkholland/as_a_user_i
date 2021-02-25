@@ -1,0 +1,15 @@
+.projectPage {
+  display: flex;
+  height: calc(100vh - 81px);
+  width: 100vw;
+}
+
+.workspace {
+  background-color: grey;
+  width: 100%;
+}
+
+.sidebar {
+  background-color: lightGrey;
+  height: 100%;
+}

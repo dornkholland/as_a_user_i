@@ -50,6 +50,7 @@ function ProjectDash() {
           return (
             <li key={project.id}>
               <ProjectCard
+                id={project.id}
                 name={project.name}
                 owner={project.ownerName}
                 lastUpdated={project.updatedAt.slice(0, 10)}

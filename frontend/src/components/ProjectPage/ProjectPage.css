@@ -1,0 +1,13 @@
+.projectPage {
+  display: flex;
+}
+
+.workspace {
+  background-color: grey;
+  width: 100%;
+}
+
+.sidebar {
+  background-color: lightGrey;
+  height: auto;
+}

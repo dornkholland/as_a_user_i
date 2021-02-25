@@ -15,7 +15,7 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   };
   return (
     <div className="projectCard">
-      {!editing ? <Link to="">{name}</Link> : null}
+      {!editing ? <Link to={`/project/${id}`}>{name}</Link> : null}
       {editing ? (
         <div>
           <ProjectEditForm
