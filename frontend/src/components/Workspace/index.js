@@ -6,7 +6,7 @@ function Workspace({ activeWindows }) {
     <div className="workspace">
       <ul className="windowContainer">
         {activeWindows.map((name) => (
-          <li>
+          <li key={name}>
             <Window name={name} />
           </li>
         ))}

@@ -5,7 +5,7 @@ function SideBar({ setActiveWindows, activeWindows }) {
     <div className="sidebar">
       <ul>
         {windowNames.map((name) => (
-          <li>
+          <li key={name}>
             <SideBarButton
               name={name}
               activeWindows={activeWindows}
