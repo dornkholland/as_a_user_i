@@ -1,5 +1,3 @@
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -24,11 +22,9 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
   return (
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </DndProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   );
 }
