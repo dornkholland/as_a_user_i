@@ -1,5 +1,5 @@
 .window {
   background-color: white;
-  height: 400px;
+  min-height: 700px;
   width: 400px;
 }

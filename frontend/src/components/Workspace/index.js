@@ -1,16 +1,27 @@
-import { useState } from "react";
+import { Droppable } from "react-beautiful-dnd";
+import * as windowActions from "../../store/window";
+import { useSelector } from "react-redux";
 import "./Workspace.css";
 import Window from "../Window";
-function Workspace({ activeWindows }) {
+
+function Workspace() {
+  const windows = useSelector((state) => state.window.windows);
   return (
     <div className="workspace">
-      <ul className="windowContainer">
-        {activeWindows.map((name) => (
-          <li key={name}>
-            <Window name={name} />
-          </li>
-        ))}
-      </ul>
+      <Droppable droppableId="windowContainer" direction="horizontal">
+        {(provided) => (
+          <ul
+            className="windowContainer"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {windows.map((name, idx) => (
+              <Window key={name} name={name} index={idx} />
+            ))}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
     </div>
   );
 }
