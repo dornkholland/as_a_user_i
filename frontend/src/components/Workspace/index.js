@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Workspace.css";
 import Window from "../Window";
-function Workspace({ activeWindows }) {
+
+function Workspace() {
+  const windows = useSelector((state) => state.window.windows);
   return (
     <div className="workspace">
       <ul className="windowContainer">
-        {activeWindows.map((name) => (
+        {windows.map((name, idx) => (
           <li key={name}>
-            <Window name={name} />
+            <Window name={name} index={idx} />
           </li>
         ))}
       </ul>

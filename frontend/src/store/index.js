@@ -1,11 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import windowReducer from "./window";
 import projectReducer from "./project";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   project: projectReducer,
+  window: windowReducer,
 });
 
 let enhancer;

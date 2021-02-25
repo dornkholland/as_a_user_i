@@ -6,11 +6,7 @@ function SideBar({ setActiveWindows, activeWindows }) {
       <ul>
         {windowNames.map((name) => (
           <li key={name}>
-            <SideBarButton
-              name={name}
-              activeWindows={activeWindows}
-              setActiveWindows={setActiveWindows}
-            />
+            <SideBarButton name={name} />
           </li>
         ))}
       </ul>

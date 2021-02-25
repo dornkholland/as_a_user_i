@@ -1,12 +1,9 @@
+import * as windowActions from "../../store/window";
+import { useDispatch } from "react-redux";
 const SideBarButton = ({ activeWindows, setActiveWindows, name }) => {
+  const dispatch = useDispatch();
   const handleClick = () => {
-    if (activeWindows.includes(name)) {
-      setActiveWindows((prev) =>
-        prev.filter((ourWindow) => ourWindow !== name)
-      );
-    } else {
-      setActiveWindows((prev) => [...prev, name]);
-    }
+    dispatch(windowActions.windowToggle(name));
   };
   return <button onClick={handleClick}>{name}</button>;
 };

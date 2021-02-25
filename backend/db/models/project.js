@@ -36,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   Project.associate = function (models) {
     // associations can be defined here
-    Project.hasMany(models.Window, { foreignKey: "projectId" });
     Project.hasMany(models.UserProject, { foreignKey: "projectId" });
     Project.belongsTo(models.User, { foreignKey: "ownerId" });
   };

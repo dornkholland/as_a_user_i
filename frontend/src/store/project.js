@@ -1,6 +1,5 @@
 import { csrfFetch } from "./csrf";
 import cloneDeep from "lodash/cloneDeep";
-const initialState = { projects: { owned: [], collab: [] } };
 
 const SET_PROJECT = "project/setProject";
 const ADD_PROJECT = "project/addProject";
@@ -71,6 +70,7 @@ export const deleteProject = (project) => async (dispatch) => {
   return dispatch(removeProject(Number(data.project)));
 };
 
+const initialState = { projects: { owned: [], collab: [] } };
 const projectsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
