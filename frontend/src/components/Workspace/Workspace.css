@@ -1,0 +1,8 @@
+.windowContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.windowContainer > li {
+  margin: 30px;
+}

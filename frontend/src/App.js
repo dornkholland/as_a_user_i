@@ -6,6 +6,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Landing from "./components/Landing";
 import ProjectDash from "./components/ProjectDash";
+import ProjectPage from "./components/ProjectPage";
 import * as sessionActions from "./store/session";
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function App() {
       {isLoaded && (
         <div>
           <Switch>
+            <Route path="/project/:projectId">
+              <Navigation isLoaded={isLoaded} />
+              <ProjectPage />
+            </Route>
             <Route path="/projects">
               <Navigation isLoaded={isLoaded} />
               <ProjectDash />
