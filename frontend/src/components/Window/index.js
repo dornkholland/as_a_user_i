@@ -1,6 +1,7 @@
 import * as windowActions from "../../store/window";
 import { Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
+import StoryContainer from "./StoryContainer";
 import "./Window.css";
 function Window({ name, index }) {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function Window({ name, index }) {
           ref={provided.innerRef}
         >
           <h2>{name}</h2>
+          <StoryContainer name={name} />
         </li>
       )}
     </Draggable>
