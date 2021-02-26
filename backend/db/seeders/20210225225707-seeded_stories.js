@@ -6,12 +6,12 @@ module.exports = {
       "Stories",
       [
         {
-          name: "As a user, i can do some cool stuff like load a test story.",
-          window: "My Work",
+          name: "do some cool stuff like load a test story.",
+          window: "Backlog",
           storyType: "Feature",
           assignedUserId: 1,
           description:
-            "This is the first story to ever be created on this application.  It's pretty cool.'",
+            "This is the first story to ever be created on this application.  It's pretty cool.",
           size: 1,
           status: "Unstarted",
           projectId: 1,

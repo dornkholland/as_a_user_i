@@ -20,7 +20,7 @@ const StoryContainer = ({ name }) => {
     <ul>
       {myStories.map((story) => (
         <li>
-          <Story story={story} />
+          <Story story={story} windowName={name} />
         </li>
       ))}
     </ul>

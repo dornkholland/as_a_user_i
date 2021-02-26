@@ -69,5 +69,25 @@ module.exports = (sequelize, DataTypes) => {
     return stories;
   };
 
+  Story.getStoryById = async function ({ storyId }) {
+    const story = await Story.findByPk(storyId);
+    return story;
+  };
+
+  Story.updateStory = async function (storyData) {
+    const story = await Story.update(
+      {
+        name: storyData.name,
+        window: storyData.window,
+        description: storyData.description,
+        size: storyData.size,
+        status: storyData.status,
+        storyType: storyData.storyType,
+      },
+      { where: { id: storyData.id } }
+    );
+
+    return story;
+  };
   return Story;
 };

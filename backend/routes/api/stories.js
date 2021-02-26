@@ -10,9 +10,37 @@ router.get(
       windowName,
       projectId,
     });
-    console.log(stories);
 
     return res.json({ stories });
+  })
+);
+
+router.patch(
+  "/:windowName/:storyId",
+  asyncHandler(async (req, res) => {
+    const {
+      storyName,
+      storyType,
+      storyStatus,
+      storyDescription,
+      storySize,
+    } = req.body;
+    const { windowName, projectId, storyId } = req.params;
+    const dataObj = {
+      id: storyId,
+      name: storyName,
+      window: windowName,
+      storyType,
+      description: storyDescription,
+      size: storySize,
+      status: storyStatus,
+      projectId,
+    };
+    await Story.updateStory(dataObj);
+    const story = await Story.getStoryById({ storyId });
+    console.log(story);
+
+    return res.json({ story });
   })
 );
 
