@@ -13,7 +13,7 @@ const Story = ({ windowName, story }) => {
           setIsMax={setIsMax}
         />
       ) : (
-        <StoryMinimized story={story} setIsMax={setIsMax} />
+        <StoryMinimized story={story} setIsMax={setIsMax} creator={false} />
       )}
     </div>
   );

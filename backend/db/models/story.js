@@ -89,5 +89,19 @@ module.exports = (sequelize, DataTypes) => {
 
     return story;
   };
+  Story.createStory = async function (storyData) {
+    const story = await Story.create({
+      name: storyData.name,
+      window: storyData.window,
+      description: storyData.description,
+      size: storyData.size,
+      status: storyData.status,
+      storyType: storyData.storyType,
+      projectId: storyData.projectId,
+    });
+
+    return story;
+  };
+
   return Story;
 };

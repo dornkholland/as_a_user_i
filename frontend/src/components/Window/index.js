@@ -1,3 +1,5 @@
+import StoryMaximized from "../Story/StoryMaximized";
+import { useState } from "react";
 import * as windowActions from "../../store/window";
 import { Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +8,10 @@ import "./Window.css";
 function Window({ name, index }) {
   const dispatch = useDispatch();
   const allStories = useSelector((state) => state.story.stories);
+  const [createToggle, setCreateToggle] = useState(false);
+  const handleCreateStory = () => {
+    setCreateToggle((prev) => !prev);
+  };
   return (
     <Draggable draggableId={name} index={index} key={name}>
       {(provided) => (
@@ -15,7 +21,19 @@ function Window({ name, index }) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <h2>{name}</h2>
+          <div className="windowHeader">
+            <h2>{name}</h2>
+            {["IceBox", "Backlog"].includes(name) ? (
+              <button onClick={handleCreateStory}>+</button>
+            ) : null}
+          </div>
+          {createToggle ? (
+            <StoryMaximized
+              windowName={name}
+              creator={true}
+              setCreateToggle={setCreateToggle}
+            />
+          ) : null}
           <StoryContainer name={name} />
         </li>
       )}

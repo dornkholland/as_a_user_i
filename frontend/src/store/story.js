@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = "story/load";
 
-const UPDATE_STORY = "story/update";
+const SET_STORY = "story/set";
 
 const loadStories = (stories) => {
   return {
@@ -13,7 +13,7 @@ const loadStories = (stories) => {
 
 const setStory = (story) => {
   return {
-    type: UPDATE_STORY,
+    type: SET_STORY,
     payload: story,
   };
 };
@@ -26,6 +26,30 @@ export const getStoriesByWindow = ({ windowName, projectId }) => async (
   );
   const data = await response.json();
   return dispatch(loadStories(data));
+};
+
+export const createStory = ({
+  projectId,
+  storyName,
+  storyType,
+  storySize,
+  storyStatus,
+  storyDescription,
+  windowName,
+}) => async (dispatch) => {
+  const response = await csrfFetch(`/api/projects/${projectId}/stories/`, {
+    method: "POST",
+    body: JSON.stringify({
+      storyName,
+      storyType,
+      storySize,
+      storyStatus,
+      storyDescription,
+      windowName,
+    }),
+  });
+  const data = await response.json();
+  return dispatch(setStory(data.story));
 };
 
 export const updateStory = ({
@@ -67,21 +91,31 @@ const storyReducer = (state = initialState, action) => {
         newState.stories[projectId][windowName] = action.payload.stories;
       }
       return newState;
-    case UPDATE_STORY:
+    case SET_STORY:
       const projectId = action.payload.projectId;
       const windowName = action.payload.window;
       newState.stories[projectId] = { ...newState.stories[projectId] };
-      newState.stories[projectId][windowName] = newState.stories[projectId][
-        windowName
-      ].map((story) => {
-        if (story.id !== action.payload.id) {
-          return story;
-        } else {
-          return action.payload;
-        }
-      });
+      if (!newState.stories[projectId][windowName]) {
+        newState.stories[projectId][windowName] = [];
+      }
+      const stories = newState.stories[projectId][windowName];
+      if (stories.find((story) => story.id === action.payload.id)) {
+        newState.stories[projectId][windowName] = newState.stories[projectId][
+          windowName
+        ].map((story) => {
+          if (story.id !== action.payload.id) {
+            return story;
+          } else {
+            return action.payload;
+          }
+        });
+      } else {
+        const projectId = action.payload.projectId;
+        const windowName = action.payload.window;
+        newState.stories[projectId][windowName].push(action.payload);
+      }
+      console.log(newState.stories[projectId][windowName]);
       return newState;
-
     default:
       return state;
   }

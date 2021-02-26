@@ -3,16 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 import * as storyActions from "../../store/story";
 import { useParams } from "react-router";
 
-const StoryMaximized = ({ windowName, story, setIsMax }) => {
+const StoryMaximized = ({
+  setCreateToggle,
+  creator,
+  windowName,
+  story,
+  setIsMax,
+}) => {
   const dispatch = useDispatch();
   const thisStory = useSelector((state) => state.story.stories);
   const { projectId } = useParams();
 
-  const [storyName, setStoryName] = useState(story.name);
-  const [storyType, setStoryType] = useState(story.storyType);
-  const [storySize, setStorySize] = useState(story.size);
-  const [storyStatus, setStoryStatus] = useState(story.status);
-  const [storyDescription, setStoryDescription] = useState(story.description);
+  const storyNameHandler = () => (story && story.name ? story.name : "");
+  const [storyName, setStoryName] = useState(storyNameHandler);
+  const storyTypeHandler = () =>
+    story && story.storyType ? story.storyType : "Feature";
+  const [storyType, setStoryType] = useState(storyTypeHandler);
+  const storySizeHandler = () => (story && story.size ? story.size : 1);
+  const [storySize, setStorySize] = useState(storySizeHandler);
+  const storyStatusHandler = () =>
+    story && story.status ? story.status : "unstarted";
+  const [storyStatus, setStoryStatus] = useState(storyStatusHandler);
+  const storyDescriptionHandler = () =>
+    story && story.description ? story.description : "";
+  const [storyDescription, setStoryDescription] = useState(
+    storyDescriptionHandler
+  );
+
+  const cancelCreationHandler = () => {
+    setCreateToggle(false);
+  };
 
   const handleCollapse = () => {
     setIsMax(false);
@@ -20,19 +40,34 @@ const StoryMaximized = ({ windowName, story, setIsMax }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      storyActions.updateStory({
-        storyId: story.id,
-        storyName,
-        storyType,
-        storySize,
-        storyStatus,
-        storyDescription,
-        projectId,
-        windowName,
-      })
-    );
-    setIsMax(false);
+    if (creator) {
+      dispatch(
+        storyActions.createStory({
+          storyName,
+          storyType,
+          storySize,
+          storyStatus,
+          storyDescription,
+          projectId,
+          windowName,
+        })
+      );
+      setCreateToggle(false);
+    } else {
+      dispatch(
+        storyActions.updateStory({
+          storyId: story.id,
+          storyName,
+          storyType,
+          storySize,
+          storyStatus,
+          storyDescription,
+          projectId,
+          windowName,
+        })
+      );
+      setIsMax(false);
+    }
   };
   return (
     <div className="maxStory">
@@ -42,8 +77,14 @@ const StoryMaximized = ({ windowName, story, setIsMax }) => {
         ) : storyType === "Bug" ? (
           <h1>as a user, i should be able to... </h1>
         ) : null}
-        <button>Start!</button>
-        <button onClick={handleCollapse}>Collapse</button>
+        {!creator ? (
+          <>
+            <button>Start!</button>
+            <button onClick={handleCollapse}>Collapse</button>
+          </>
+        ) : (
+          <button onClick={cancelCreationHandler}>cancel</button>
+        )}
       </div>
       <form className="storyEditForm" onSubmit={handleSubmit}>
         <textarea
@@ -83,7 +124,9 @@ const StoryMaximized = ({ windowName, story, setIsMax }) => {
           value={storyDescription}
           onChange={(e) => setStoryDescription(e.target.value)}
         />
-        <button type="submit">Save Changes</button>
+        <button type="submit">
+          {creator ? <span>Create Story!</span> : <span>Save Changes</span>}
+        </button>
       </form>
     </div>
   );
