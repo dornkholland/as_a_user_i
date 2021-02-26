@@ -1,0 +1,48 @@
+/* minimized story stylings */
+.miniStory {
+  border: 1px solid black;
+  padding: 1px 3px;
+}
+.miniStory__header {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+}
+.miniStory__details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* maximized story stylings */
+.maxStory {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  background-color: lightGrey;
+  padding: 10px;
+}
+
+.maxStory__dropdowns {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+.maxStory__header {
+  display: flex;
+  justify-content: flex-end;
+}
+.maxStory__header h1 {
+  margin-right: auto;
+  color: orange;
+}
+.maxStory__header button {
+  margin: 3px;
+}
+
+.maxStory select {
+  width: 40%;
+  margin: 10px;
+}
+
+.maxStory textarea {
+  font-size: 20px;
+}
