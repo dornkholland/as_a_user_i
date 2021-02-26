@@ -1,12 +1,16 @@
 import * as storyActions from "../../store/story";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Story from "../Story";
 const StoryContainer = ({ name }) => {
-  const dispatch = useDispatch();
-  const testArr = [1, 2, 3];
   const { projectId } = useParams();
+  const dispatch = useDispatch();
+  const allStories = useSelector((state) => state.story.stories);
+  const myStories =
+    allStories[projectId] && allStories[projectId][name]
+      ? allStories[projectId][name]
+      : [];
   useEffect(() => {
     const response = dispatch(
       storyActions.getStoriesByWindow({ windowName: name, projectId })
@@ -14,9 +18,9 @@ const StoryContainer = ({ name }) => {
   }, [dispatch]);
   return (
     <ul>
-      {testArr.map((idx) => (
+      {myStories.map((story) => (
         <li>
-          <Story storyId={idx} />
+          <Story story={story} />
         </li>
       ))}
     </ul>

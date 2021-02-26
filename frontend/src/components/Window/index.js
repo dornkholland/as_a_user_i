@@ -1,10 +1,11 @@
 import * as windowActions from "../../store/window";
 import { Draggable } from "react-beautiful-dnd";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import StoryContainer from "./StoryContainer";
 import "./Window.css";
 function Window({ name, index }) {
   const dispatch = useDispatch();
+  const allStories = useSelector((state) => state.story.stories);
   return (
     <Draggable draggableId={name} index={index} key={name}>
       {(provided) => (

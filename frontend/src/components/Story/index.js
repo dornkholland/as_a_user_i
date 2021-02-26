@@ -1,5 +1,6 @@
-const Story = ({ storyId }) => {
-  return <div>test story {storyId}</div>;
+const Story = ({ story }) => {
+  console.log(story);
+  return <div>test story </div>;
 };
 
 export default Story;
