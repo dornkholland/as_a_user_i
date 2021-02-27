@@ -40,4 +40,15 @@ router.post(
     return res.json({ comment });
   })
 );
+
+router.delete(
+  "/:commentId",
+  asyncHandler(async (req, res) => {
+    const { commentId } = req.params;
+    const deletedComment = await Comment.findByPk(commentId);
+    await Comment.deleteComment({ commentId });
+    return res.json(deletedComment);
+  })
+);
+
 module.exports = router;

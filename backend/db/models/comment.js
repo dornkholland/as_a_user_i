@@ -41,12 +41,17 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Comment.addComment = async function ({ storyId, userId, description }) {
-    const comment = Comment.create({
+    const comment = await Comment.create({
       storyId,
       description,
       userId,
     });
     return comment;
+  };
+
+  Comment.deleteComment = async function ({ commentId }) {
+    const deletedComment = await Comment.destroy({ where: { id: commentId } });
+    return deletedComment;
   };
 
   return Comment;

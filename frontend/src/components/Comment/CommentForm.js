@@ -7,6 +7,7 @@ function CommentForm({ projectId, storyId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(commentActions.addComment({ storyId, projectId, description }));
+    setDescription("");
   };
   return (
     <form onSubmit={handleSubmit}>
