@@ -23,13 +23,15 @@ const StoryMaximized = ({
   const storySizeHandler = () => (story && story.size ? story.size : 1);
   const [storySize, setStorySize] = useState(storySizeHandler);
   const storyStatusHandler = () =>
-    story && story.status ? story.status : "unstarted";
-  const [storyStatus, setStoryStatus] = useState(storyStatusHandler);
+    story && story.status ? story.status : "Unstarted";
+  const [storyStatus, setStoryStatus] = useState(storyStatusHandler());
   const storyDescriptionHandler = () =>
     story && story.description ? story.description : "";
   const [storyDescription, setStoryDescription] = useState(
     storyDescriptionHandler
   );
+
+  const [storyWindow, setStoryWindow] = useState(windowName);
 
   const deleteStoryHandler = () => {
     dispatch(
@@ -46,7 +48,9 @@ const StoryMaximized = ({
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     if (creator) {
       dispatch(
         storyActions.createStory({
@@ -70,12 +74,62 @@ const StoryMaximized = ({
           storyStatus,
           storyDescription,
           projectId,
-          windowName,
+          windowName: storyWindow,
         })
       );
       setIsMax(false);
     }
   };
+
+  const stateUpdate = (newWindow, newStatus) => {
+    dispatch(
+      storyActions.updateStory({
+        storyId: story.id,
+        storyName,
+        storyType,
+        storySize,
+        storyStatus: newStatus,
+        storyDescription,
+        projectId,
+        windowName: newWindow,
+        previousWindow: windowName,
+      })
+    );
+    setIsMax(false);
+  };
+
+  const handleStateChange = () => {
+    switch (storyStatus) {
+      case "Unstarted":
+        return stateUpdate("In Progress", "In Progress");
+      case "In Progress":
+        return stateUpdate("Awaiting Review", "Awaiting Review");
+      case "Awaiting Review":
+        return stateUpdate("Done", "Done");
+      case "Rejected":
+        return stateUpdate("Backlog", "Unstarted");
+      default:
+        return;
+    }
+  };
+
+  const handleRejection = () => {
+    return stateUpdate("Rejected", "Rejected");
+  };
+
+  function stateButton(storyStatus) {
+    switch (storyStatus) {
+      case "Unstarted":
+        return "Start!";
+      case "In Progress":
+        return "Deliver!";
+      case "Awaiting Review":
+        return "Accept";
+      case "Rejected":
+        return "Restart";
+    }
+  }
+
   return (
     <div className="maxStory">
       <div className="maxStory__header">
@@ -86,7 +140,14 @@ const StoryMaximized = ({
         ) : null}
         {!creator ? (
           <>
-            <button>Start!</button>
+            {storyStatus !== "Done" ? (
+              <button onClick={handleStateChange}>
+                {stateButton(storyStatus)}
+              </button>
+            ) : null}
+            {storyStatus === "Awaiting Review" ? (
+              <button onClick={handleRejection}>Reject</button>
+            ) : null}
             <button onClick={handleCollapse}>Collapse</button>
           </>
         ) : (
@@ -116,16 +177,7 @@ const StoryMaximized = ({
             <option value="4">4</option>
             <option value="8">8</option>
           </select>
-          <select
-            value={storyStatus}
-            onChange={(e) => setStoryStatus(e.target.value)}
-          >
-            <option value="Unstarted">Unstarted</option>
-            <option value="Started">Started</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Accepted">Accepted</option>
-          </select>
+          {!creator ? <h1>status: {storyStatus}</h1> : null}
         </div>
         <textarea
           value={storyDescription}
