@@ -23,13 +23,15 @@ const StoryMaximized = ({
   const storySizeHandler = () => (story && story.size ? story.size : 1);
   const [storySize, setStorySize] = useState(storySizeHandler);
   const storyStatusHandler = () =>
-    story && story.status ? story.status : "unstarted";
-  const [storyStatus, setStoryStatus] = useState(storyStatusHandler);
+    story && story.status ? story.status : "Unstarted";
+  const [storyStatus, setStoryStatus] = useState(storyStatusHandler());
   const storyDescriptionHandler = () =>
     story && story.description ? story.description : "";
   const [storyDescription, setStoryDescription] = useState(
     storyDescriptionHandler
   );
+
+  const [storyWindow, setStoryWindow] = useState(windowName);
 
   const deleteStoryHandler = () => {
     dispatch(
@@ -46,7 +48,9 @@ const StoryMaximized = ({
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     if (creator) {
       dispatch(
         storyActions.createStory({
@@ -70,12 +74,50 @@ const StoryMaximized = ({
           storyStatus,
           storyDescription,
           projectId,
-          windowName,
+          windowName: storyWindow,
         })
       );
       setIsMax(false);
     }
   };
+
+  const stateUpdate = (newWindow, newStatus) => {
+    dispatch(
+      storyActions.updateStory({
+        storyId: story.id,
+        storyName,
+        storyType,
+        storySize,
+        storyStatus: newStatus,
+        storyDescription,
+        projectId,
+        windowName: newWindow,
+        previousWindow: windowName,
+      })
+    );
+  };
+
+  const handleStateChange = () => {
+    switch (storyStatus) {
+      case "Unstarted":
+        stateUpdate("In Progress", "In Progress");
+        return;
+      default:
+        return;
+    }
+  };
+
+  function stateButton(storyStatus) {
+    switch (storyStatus) {
+      case "Unstarted":
+        return "Start!";
+      case "In Progress":
+        return "Deliver!";
+      default:
+        return "big mistake";
+    }
+  }
+
   return (
     <div className="maxStory">
       <div className="maxStory__header">
@@ -86,7 +128,9 @@ const StoryMaximized = ({
         ) : null}
         {!creator ? (
           <>
-            <button>Start!</button>
+            <button onClick={handleStateChange}>
+              {stateButton(storyStatus)}
+            </button>
             <button onClick={handleCollapse}>Collapse</button>
           </>
         ) : (
@@ -116,16 +160,7 @@ const StoryMaximized = ({
             <option value="4">4</option>
             <option value="8">8</option>
           </select>
-          <select
-            value={storyStatus}
-            onChange={(e) => setStoryStatus(e.target.value)}
-          >
-            <option value="Unstarted">Unstarted</option>
-            <option value="Started">Started</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Accepted">Accepted</option>
-          </select>
+          {!creator ? <h1>status: {storyStatus}</h1> : null}
         </div>
         <textarea
           value={storyDescription}

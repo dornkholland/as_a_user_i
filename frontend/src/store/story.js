@@ -70,6 +70,7 @@ export const updateStory = ({
   storyStatus,
   storyDescription,
   windowName,
+  previousWindow,
 }) => async (dispatch) => {
   const response = await csrfFetch(
     `/api/projects/${projectId}/stories/${windowName}/${storyId}`,
@@ -85,6 +86,7 @@ export const updateStory = ({
     }
   );
   const data = await response.json();
+  data.story.previousWindow = previousWindow;
   return dispatch(setStory(data.story));
 };
 
@@ -132,6 +134,14 @@ const storyReducer = (state = initialState, action) => {
       } else {
         const projectId = action.payload.projectId;
         const windowName = action.payload.window;
+        const previousWindow = action.payload.previousWindow;
+        console.log(action.payload);
+        if (previousWindow) {
+          console.log(previousWindow);
+          newState.stories[projectId][previousWindow] = newState.stories[
+            projectId
+          ][previousWindow].filter((story) => story.id !== action.payload.id);
+        }
         newState.stories[projectId][windowName].unshift(action.payload);
       }
       return newState;
