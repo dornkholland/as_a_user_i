@@ -1,44 +1,26 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Stories", {
+    return queryInterface.createTable("Comments", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      window: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      storyType: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      assignedUserId: {
-        type: Sequelize.INTEGER,
-        references: { model: "Users" },
-      },
       description: {
-        type: Sequelize.STRING(5000),
-      },
-      size: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      status: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      projectId: {
+      storyId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "Projects" },
+        references: { model: "Stories" },
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "Users" },
       },
       createdAt: {
         allowNull: false,
@@ -51,6 +33,7 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Stories");
+    return queryInterface.dropTable("Comments");
   },
 };
+

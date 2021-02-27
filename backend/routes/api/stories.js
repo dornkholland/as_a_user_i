@@ -2,6 +2,9 @@ const router = require("express").Router({ mergeParams: true });
 const asyncHandler = require("express-async-handler");
 const { Story } = require("../../db/models");
 
+const commentRouter = require("./comments.js");
+router.use("/:storyId/comments", commentRouter);
+
 router.get(
   "/:windowName",
   asyncHandler(async (req, res) => {

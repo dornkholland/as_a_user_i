@@ -132,7 +132,7 @@ const storyReducer = (state = initialState, action) => {
       } else {
         const projectId = action.payload.projectId;
         const windowName = action.payload.window;
-        newState.stories[projectId][windowName].push(action.payload);
+        newState.stories[projectId][windowName].unshift(action.payload);
       }
       return newState;
     case REMOVE_STORY:
@@ -142,7 +142,6 @@ const storyReducer = (state = initialState, action) => {
         newState.stories[projectId][windowName] = newState.stories[projectId][
           windowName
         ].filter((story) => story.id !== action.payload.id);
-        console.log(newState.stories[projectId][windowName]);
       }
       return newState;
     default:

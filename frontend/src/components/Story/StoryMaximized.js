@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as storyActions from "../../store/story";
 import { useParams } from "react-router";
+import CommentContainer from "./CommentContainer";
 
 const StoryMaximized = ({
   setCreateToggle,
@@ -135,7 +136,10 @@ const StoryMaximized = ({
         </button>
       </form>
       {!creator ? (
-        <button onClick={deleteStoryHandler}>Delete story</button>
+        <>
+          <button onClick={deleteStoryHandler}>Delete story</button>
+          <CommentContainer story={story} />
+        </>
       ) : null}
     </div>
   );
