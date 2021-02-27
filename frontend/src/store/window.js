@@ -54,7 +54,6 @@ const windowReducer = (state = { windows: [] }, action) => {
         action.payload.dragName
       );
       return newState;
-    case MOVE_WINDOW:
     default:
       return newState;
   }

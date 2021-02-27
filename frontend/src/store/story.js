@@ -6,6 +6,8 @@ const SET_STORY = "story/set";
 
 const REMOVE_STORY = "story/remove";
 
+const MOVE_STORY = "story/move";
+
 const loadStories = (stories) => {
   return {
     type: LOAD,
@@ -25,6 +27,25 @@ const removeStory = (story) => {
     type: REMOVE_STORY,
     payload: story,
   };
+};
+
+const moveStory = (coords) => {
+  return {
+    type: MOVE_STORY,
+    payload: coords,
+  };
+};
+
+export const storyReorder = ({ coords, projectId }) => (dispatch) => {
+  const coordsObj = {
+    dragName: coords.draggableId,
+    sourceId: coords.source.index,
+    destId: coords.destination.index,
+    windowName: coords.destination.droppableId,
+    projectId,
+  };
+  const response = dispatch(moveStory(coordsObj));
+  return response;
 };
 
 export const getStoriesByWindow = ({ windowName, projectId }) => async (
@@ -154,6 +175,23 @@ const storyReducer = (state = initialState, action) => {
         ].filter((story) => story.id !== action.payload.id);
       }
       return newState;
+
+    case MOVE_STORY:
+      if (true) {
+        const projectId = action.payload.projectId;
+        const windowName = action.payload.windowName;
+        const toRemove = newState.stories[projectId][windowName].splice(
+          action.payload.sourceId,
+          1
+        )[0];
+        newState.stories[projectId][windowName].splice(
+          action.payload.destId,
+          0,
+          toRemove
+        );
+      }
+      return newState;
+
     default:
       return state;
   }
