@@ -30,6 +30,12 @@ const StoryMaximized = ({
     storyDescriptionHandler
   );
 
+  const deleteStoryHandler = () => {
+    dispatch(
+      storyActions.deleteStory({ windowName, storyId: story.id, projectId })
+    );
+  };
+
   const cancelCreationHandler = () => {
     setCreateToggle(false);
   };
@@ -128,6 +134,9 @@ const StoryMaximized = ({
           {creator ? <span>Create Story!</span> : <span>Save Changes</span>}
         </button>
       </form>
+      {!creator ? (
+        <button onClick={deleteStoryHandler}>Delete story</button>
+      ) : null}
     </div>
   );
 };

@@ -103,5 +103,14 @@ module.exports = (sequelize, DataTypes) => {
     return story;
   };
 
+  Story.deleteStory = async function ({ storyId }) {
+    const deleted = await Story.destroy({
+      where: {
+        id: storyId,
+      },
+    });
+    return deleted;
+  };
+
   return Story;
 };

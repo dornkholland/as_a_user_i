@@ -4,6 +4,8 @@ const LOAD = "story/load";
 
 const SET_STORY = "story/set";
 
+const REMOVE_STORY = "story/remove";
+
 const loadStories = (stories) => {
   return {
     type: LOAD,
@@ -14,6 +16,13 @@ const loadStories = (stories) => {
 const setStory = (story) => {
   return {
     type: SET_STORY,
+    payload: story,
+  };
+};
+
+const removeStory = (story) => {
+  return {
+    type: REMOVE_STORY,
     payload: story,
   };
 };
@@ -79,6 +88,17 @@ export const updateStory = ({
   return dispatch(setStory(data.story));
 };
 
+export const deleteStory = ({ projectId, storyId }) => async (dispatch) => {
+  const response = await csrfFetch(
+    `/api/projects/${projectId}/stories/${storyId}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const data = await response.json();
+  return dispatch(removeStory(data.deleted));
+};
+
 const initialState = { stories: {} };
 const storyReducer = (state = initialState, action) => {
   const newState = JSON.parse(JSON.stringify(state));
@@ -114,7 +134,16 @@ const storyReducer = (state = initialState, action) => {
         const windowName = action.payload.window;
         newState.stories[projectId][windowName].push(action.payload);
       }
-      console.log(newState.stories[projectId][windowName]);
+      return newState;
+    case REMOVE_STORY:
+      if (true) {
+        const projectId = action.payload.projectId;
+        const windowName = action.payload.window;
+        newState.stories[projectId][windowName] = newState.stories[projectId][
+          windowName
+        ].filter((story) => story.id !== action.payload.id);
+        console.log(newState.stories[projectId][windowName]);
+      }
       return newState;
     default:
       return state;

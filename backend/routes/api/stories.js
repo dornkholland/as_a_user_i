@@ -69,4 +69,14 @@ router.post(
   })
 );
 
+router.delete(
+  "/:storyId",
+  asyncHandler(async (req, res) => {
+    const { storyId } = req.params;
+    const deleted = await Story.getStoryById({ storyId });
+    await Story.deleteStory({ storyId });
+    return res.json({ deleted });
+  })
+);
+
 module.exports = router;
