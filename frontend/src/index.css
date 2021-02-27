@@ -40,3 +40,31 @@ button {
 li {
   list-style-type: none;
 }
+
+textarea {
+  font-family: Open Sans, open-sans, EmojiFontFace, helvetica, arial, sans-serif;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+select {
+  background-color: transparent;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  outline: none;
+  width: 100%;
+  border: 1px solid var(black);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}

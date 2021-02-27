@@ -1,5 +1,4 @@
 import { csrfFetch } from "./csrf";
-import cloneDeep from "lodash/cloneDeep";
 
 const SET_PROJECT = "project/setProject";
 const ADD_PROJECT = "project/addProject";

@@ -1,4 +1,3 @@
-const UserProject = require("../models/userproject");
 const { Validator } = require("sequelize");
 ("use strict");
 module.exports = (sequelize, DataTypes) => {
@@ -36,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   Project.associate = function (models) {
     // associations can be defined here
+    Project.hasMany(models.Story, { foreignKey: "projectId" });
     Project.hasMany(models.UserProject, { foreignKey: "projectId" });
     Project.belongsTo(models.User, { foreignKey: "ownerId" });
   };

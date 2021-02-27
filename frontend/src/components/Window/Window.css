@@ -1,5 +1,11 @@
 .window {
   background-color: white;
   min-height: 700px;
-  min-width: 400px;
+  width: 400px;
+}
+
+.windowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

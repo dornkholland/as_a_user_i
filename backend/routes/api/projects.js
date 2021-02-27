@@ -4,6 +4,9 @@ const { restoreUser } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
 
+//route for stories
+const storiesRouter = require("./stories.js");
+router.use("/:projectId/stories", storiesRouter);
 // route for getting projects on project dash
 router.get(
   "/",

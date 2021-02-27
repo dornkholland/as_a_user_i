@@ -7,7 +7,8 @@ function ProjectForm() {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    return dispatch(projectActions.createProject({ projectName }));
+    dispatch(projectActions.createProject({ projectName }));
+    setProjectName("");
   };
   return (
     <div className="projectCreator">

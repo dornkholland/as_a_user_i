@@ -1,6 +1,13 @@
 import SideBarButton from "./SideBarButton";
 function SideBar({ setActiveWindows, activeWindows }) {
-  const windowNames = ["Icebox", "Done", "Backlog", "Rejected", "My Work"];
+  const windowNames = [
+    "Backlog",
+    "In Progress",
+    "Awaiting Review",
+    "Rejected",
+    "Done",
+    "IceBox",
+  ];
   return (
     <div className="sidebar">
       <ul>

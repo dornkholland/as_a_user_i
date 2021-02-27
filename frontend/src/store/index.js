@@ -3,11 +3,15 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import windowReducer from "./window";
 import projectReducer from "./project";
+import storyReducer from "./story";
+import commentReducer from "./comment";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   project: projectReducer,
   window: windowReducer,
+  story: storyReducer,
+  comment: commentReducer,
 });
 
 let enhancer;
