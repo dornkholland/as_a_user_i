@@ -95,16 +95,26 @@ const StoryMaximized = ({
         previousWindow: windowName,
       })
     );
+    setIsMax(false);
   };
 
   const handleStateChange = () => {
     switch (storyStatus) {
       case "Unstarted":
-        stateUpdate("In Progress", "In Progress");
-        return;
+        return stateUpdate("In Progress", "In Progress");
+      case "In Progress":
+        return stateUpdate("Awaiting Review", "Awaiting Review");
+      case "Awaiting Review":
+        return stateUpdate("Done", "Done");
+      case "Rejected":
+        return stateUpdate("Backlog", "Unstarted");
       default:
         return;
     }
+  };
+
+  const handleRejection = () => {
+    return stateUpdate("Rejected", "Rejected");
   };
 
   function stateButton(storyStatus) {
@@ -113,8 +123,10 @@ const StoryMaximized = ({
         return "Start!";
       case "In Progress":
         return "Deliver!";
-      default:
-        return "big mistake";
+      case "Awaiting Review":
+        return "Accept";
+      case "Rejected":
+        return "Restart";
     }
   }
 
@@ -128,9 +140,14 @@ const StoryMaximized = ({
         ) : null}
         {!creator ? (
           <>
-            <button onClick={handleStateChange}>
-              {stateButton(storyStatus)}
-            </button>
+            {storyStatus !== "Done" ? (
+              <button onClick={handleStateChange}>
+                {stateButton(storyStatus)}
+              </button>
+            ) : null}
+            {storyStatus === "Awaiting Review" ? (
+              <button onClick={handleRejection}>Reject</button>
+            ) : null}
             <button onClick={handleCollapse}>Collapse</button>
           </>
         ) : (
