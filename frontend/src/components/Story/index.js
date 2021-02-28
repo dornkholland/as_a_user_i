@@ -1,21 +1,30 @@
+import { Draggable } from "react-beautiful-dnd";
 import StoryMaximized from "./StoryMaximized";
 import StoryMinimized from "./StoryMinimized";
 import { useState } from "react";
 import "./Story.css";
-const Story = ({ windowName, story }) => {
+const Story = ({ windowName, story, index }) => {
   const [isMax, setIsMax] = useState(false);
   return (
-    <div>
-      {isMax ? (
-        <StoryMaximized
-          windowName={windowName}
-          story={story}
-          setIsMax={setIsMax}
-        />
-      ) : (
-        <StoryMinimized story={story} setIsMax={setIsMax} creator={false} />
+    <Draggable draggableId={JSON.stringify(story)} index={index} key={story.id}>
+      {(provided) => (
+        <li
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+        >
+          {isMax ? (
+            <StoryMaximized
+              windowName={windowName}
+              story={story}
+              setIsMax={setIsMax}
+            />
+          ) : (
+            <StoryMinimized story={story} setIsMax={setIsMax} creator={false} />
+          )}
+        </li>
       )}
-    </div>
+    </Draggable>
   );
 };
 

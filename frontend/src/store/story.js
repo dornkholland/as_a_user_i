@@ -6,6 +6,8 @@ const SET_STORY = "story/set";
 
 const REMOVE_STORY = "story/remove";
 
+const MOVE_STORY = "story/move";
+
 const loadStories = (stories) => {
   return {
     type: LOAD,
@@ -25,6 +27,25 @@ const removeStory = (story) => {
     type: REMOVE_STORY,
     payload: story,
   };
+};
+
+const moveStory = (coords) => {
+  return {
+    type: MOVE_STORY,
+    payload: coords,
+  };
+};
+
+export const storyReorder = ({ coords, projectId }) => (dispatch) => {
+  const coordsObj = {
+    story: JSON.parse(coords.draggableId),
+    sourceId: coords.source.index,
+    destId: coords.destination.index,
+    windowName: coords.destination.droppableId,
+    projectId,
+  };
+  const response = dispatch(moveStory(coordsObj));
+  return response;
 };
 
 export const getStoriesByWindow = ({ windowName, projectId }) => async (
@@ -135,9 +156,7 @@ const storyReducer = (state = initialState, action) => {
         const projectId = action.payload.projectId;
         const windowName = action.payload.window;
         const previousWindow = action.payload.previousWindow;
-        console.log(action.payload);
         if (previousWindow) {
-          console.log(previousWindow);
           newState.stories[projectId][previousWindow] = newState.stories[
             projectId
           ][previousWindow].filter((story) => story.id !== action.payload.id);
@@ -152,6 +171,28 @@ const storyReducer = (state = initialState, action) => {
         newState.stories[projectId][windowName] = newState.stories[projectId][
           windowName
         ].filter((story) => story.id !== action.payload.id);
+      }
+      return newState;
+
+    case MOVE_STORY:
+      if (true) {
+        const projectId = action.payload.projectId;
+        const windowName = action.payload.windowName;
+        const story = action.payload.story;
+        const storyArray = newState.stories[projectId][windowName];
+        let toRemove = storyArray.find((element) => element.id === story.id);
+        console.log(story);
+        console.log(newState.stories[projectId][story.window]);
+        if (toRemove) {
+          newState.stories[projectId][windowName] = storyArray.filter(
+            (ele) => ele.id !== story.id
+          );
+          newState.stories[projectId][windowName].splice(
+            action.payload.destId,
+            0,
+            toRemove
+          );
+        }
       }
       return newState;
     default:
