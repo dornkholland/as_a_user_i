@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import ProjectEditForm from "./ProjectEditForm";
+import ProjectAddCollabForm from "./ProjectAddCollabForm";
 import * as projectActions from "../../store/project";
 function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   const dispatch = useDispatch();
@@ -27,11 +28,11 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
         </div>
       ) : null}
       <h2>Owned by: {owner}</h2>
-      <h3>last updated: {lastUpdated}</h3>
       {isOwned && !editing ? (
         <>
           <button onClick={handleEdit}>Edit</button>
           <button onClick={handleDelete}>Delete</button>
+          <ProjectAddCollabForm id={id} />
         </>
       ) : null}
     </div>

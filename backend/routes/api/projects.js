@@ -133,4 +133,25 @@ router.delete(
   })
 );
 
+router.post(
+  "/:projectId/collaborator/:collaboratorId",
+  asyncHandler(async (req, res) => {
+    const { projectId, collaboratorId } = req.params;
+    const previous = await UserProject.findAll({
+      where: { projectId, userId: collaboratorId },
+    });
+    console.log(previous);
+    if (previous.length === 0) {
+      await UserProject.createProject(collaboratorId, projectId);
+      return res.json({
+        status: 200,
+      });
+    } else {
+      return res.json({
+        status: 500,
+      });
+    }
+  })
+);
+
 module.exports = router;
