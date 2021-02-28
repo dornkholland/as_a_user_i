@@ -15,15 +15,17 @@ function ProjectAddCollaboratorForm({ id }) {
     setCollabId("");
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label for="addCollaborator">Enter in collaborator id:</label>
+    <form onSubmit={handleSubmit} className="addCollabForm">
+      <label htmlFor="addCollaborator">Enter in collaborator id:</label>
       <input
         type="number"
         id="addCollaborator"
         value={collabId}
         onChange={(e) => setCollabId(e.target.value)}
       />
-      <button type="submit">Add Collaborator!</button>
+      <button type="submit">
+        <i className="fas fa-plus"></i>
+      </button>
     </form>
   );
 }

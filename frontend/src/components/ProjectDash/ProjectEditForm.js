@@ -14,19 +14,19 @@ function ProjectEditForm({ projectId, name, editing, setEditing }) {
     setEditing((prev) => !prev);
   };
   return (
-    <div className="projectEditor">
-      <form onSubmit={handleSubmit}>
-        <input
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
-          name="name"
-          id="name"
-          type="text"
-        />
-        <button type="submit">submit changes</button>
-        <button onClick={handleCancelEdit}>Cancel Changes </button>
-      </form>
-    </div>
+    <form className="projectEditForm" onSubmit={handleSubmit}>
+      <input
+        value={projectName}
+        onChange={(e) => setProjectName(e.target.value)}
+        name="name"
+        id="name"
+        type="text"
+      />
+      <button type="submit">
+        <i className="fas fa-check fa-large"></i>
+      </button>
+      <button onClick={handleCancelEdit}>Cancel</button>
+    </form>
   );
 }
 export default ProjectEditForm;
