@@ -1,12 +1,38 @@
-/* Indiviual card stylings */
-
 body {
   background-color: rgb(243, 244, 244);
+}
+
+.dashContainer {
+  padding: 30px;
 }
 
 .dashContainer button {
   background-color: rgb(37, 97, 136);
   color: white;
+}
+
+/* project creation */
+.projectCreator {
+  margin: 30px;
+}
+
+.projectCreator form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.projectCreator input {
+  height: 45px;
+  font-size: 20px;
+  box-sizing: border-box;
+  width: 30%;
+  margin: 0 15px;
+}
+
+.projectCreator button {
+  height: 45px;
 }
 
 .owned__container,
@@ -15,13 +41,22 @@ body {
   flex-wrap: wrap;
 }
 
+.dashContainer h1 {
+  margin: 30px;
+  border-bottom: 1px solid #4f575e;
+  padding: 20px 0px 20px 35px;
+  width: 70%;
+  color: #4f575e;
+}
+
+/* Indiviual card stylings */
 /* project card stylings */
 
 .projectCard {
   border: 1px solid #dddddd;
   background-color: white;
   width: 500px;
-  margin: 10px;
+  margin: 20px;
   color: #666666;
   min-height: 200px;
   display: grid;

@@ -41,6 +41,7 @@ button {
   padding: 0px 10px;
   border: none;
   font-size: 18px;
+  cursor: pointer;
 }
 li {
   list-style-type: none;
