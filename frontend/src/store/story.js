@@ -38,7 +38,7 @@ const moveStory = (coords) => {
 
 export const storyReorder = ({ coords, projectId }) => (dispatch) => {
   const coordsObj = {
-    dragName: coords.draggableId,
+    story: JSON.parse(coords.draggableId),
     sourceId: coords.source.index,
     destId: coords.destination.index,
     windowName: coords.destination.droppableId,
@@ -156,9 +156,7 @@ const storyReducer = (state = initialState, action) => {
         const projectId = action.payload.projectId;
         const windowName = action.payload.window;
         const previousWindow = action.payload.previousWindow;
-        console.log(action.payload);
         if (previousWindow) {
-          console.log(previousWindow);
           newState.stories[projectId][previousWindow] = newState.stories[
             projectId
           ][previousWindow].filter((story) => story.id !== action.payload.id);
@@ -180,18 +178,23 @@ const storyReducer = (state = initialState, action) => {
       if (true) {
         const projectId = action.payload.projectId;
         const windowName = action.payload.windowName;
-        const toRemove = newState.stories[projectId][windowName].splice(
-          action.payload.sourceId,
-          1
-        )[0];
-        newState.stories[projectId][windowName].splice(
-          action.payload.destId,
-          0,
-          toRemove
-        );
+        const story = action.payload.story;
+        const storyArray = newState.stories[projectId][windowName];
+        let toRemove = storyArray.find((element) => element.id === story.id);
+        console.log(story);
+        console.log(newState.stories[projectId][story.window]);
+        if (toRemove) {
+          newState.stories[projectId][windowName] = storyArray.filter(
+            (ele) => ele.id !== story.id
+          );
+          newState.stories[projectId][windowName].splice(
+            action.payload.destId,
+            0,
+            toRemove
+          );
+        }
       }
       return newState;
-
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import "./Story.css";
 const Story = ({ windowName, story, index }) => {
   const [isMax, setIsMax] = useState(false);
   return (
-    <Draggable draggableId={`story:${story.id}`} index={index} key={story.id}>
+    <Draggable draggableId={JSON.stringify(story)} index={index} key={story.id}>
       {(provided) => (
         <li
           {...provided.draggableProps}

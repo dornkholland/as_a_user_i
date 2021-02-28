@@ -13,9 +13,33 @@ function ProjectPage() {
     if (!result.destination) return;
     if (result.type === "window") {
       dispatch(windowActions.windowReorder(result));
+    } else if (result.source.droppableId !== result.destination.droppableId) {
+      const newWindow = result.destination.droppableId;
+      const story = JSON.parse(result.draggableId);
+      let newStatus = newWindow;
+      if (newWindow === "Backlog") {
+        newStatus = "Unstarted";
+      }
+      dispatch(
+        storyActions.updateStory({
+          projectId,
+          storyId: story.id,
+          storyName: story.name,
+          storyType: story.storyType,
+          storySize: story.size,
+          storyStatus: newStatus,
+          storyDescription: story.description,
+          previousWindow: story.window,
+          windowName: newWindow,
+        })
+      );
     } else {
-      console.log(result);
-      dispatch(storyActions.storyReorder({ coords: result, projectId }));
+      dispatch(
+        storyActions.storyReorder({
+          coords: result,
+          projectId,
+        })
+      );
     }
   };
   return (
