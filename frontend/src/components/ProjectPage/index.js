@@ -17,7 +17,8 @@ function ProjectPage() {
       const newWindow = result.destination.droppableId;
       const story = JSON.parse(result.draggableId);
       let newStatus = newWindow;
-      if (newWindow === "Backlog") {
+      let newWindowArray = ["Backlog", "IceBox", "Issues"];
+      if (newWindowArray.includes(newWindow)) {
         newStatus = "Unstarted";
       }
       dispatch(

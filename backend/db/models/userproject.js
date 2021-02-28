@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       userId,
       projectId,
     });
+    return projects;
   };
   UserProject.deleteProject = async function (projectId) {
     const projects = await UserProject.destroy({

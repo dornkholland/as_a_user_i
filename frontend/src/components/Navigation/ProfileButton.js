@@ -39,6 +39,7 @@ function ProfileButton({ user }) {
         <ul className="profile-dropdown">
           <li>Hi, {user.name}!</li>
           <li>{user.email}</li>
+          <li>Collaborator id: {user.id}</li>
           <Link to="/projects">My Projects</Link>
           <li>
             <button onClick={logout}>Log Out</button>

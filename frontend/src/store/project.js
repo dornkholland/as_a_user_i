@@ -25,6 +25,17 @@ const removeProject = (project) => {
   };
 };
 
+export const addCollaborator = ({ projectId, collaboratorId }) => async (
+  dispatch
+) => {
+  const response = await csrfFetch(
+    `/api/projects/${projectId}/collaborator/${collaboratorId}`,
+    { method: "POST" }
+  );
+  const data = await response.json();
+  return data;
+};
+
 /* get projects and set as current state thunk */
 export const getProjects = () => async (dispatch) => {
   const response = await csrfFetch("/api/projects");

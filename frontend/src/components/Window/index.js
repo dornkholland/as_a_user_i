@@ -19,10 +19,11 @@ function Window({ name, index }) {
           className="window"
           {...provided.draggableProps}
           ref={provided.innerRef}
+          {...provided.dragHandleProps}
         >
-          <div {...provided.dragHandleProps} className="windowHeader">
+          <div className="windowHeader">
             <h2>{name}</h2>
-            {["IceBox", "Backlog"].includes(name) ? (
+            {["IceBox", "Backlog", "Issues"].includes(name) ? (
               <button onClick={handleCreateStory}>+</button>
             ) : null}
           </div>

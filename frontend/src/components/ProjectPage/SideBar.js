@@ -6,6 +6,7 @@ function SideBar({ setActiveWindows, activeWindows }) {
     "Awaiting Review",
     "Rejected",
     "Done",
+    "Issues",
     "IceBox",
   ];
   return (
