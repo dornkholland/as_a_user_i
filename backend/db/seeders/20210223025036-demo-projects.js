@@ -6,26 +6,32 @@ module.exports = {
       "Projects",
       [
         {
-          name: "Demo Project 1",
+          name: "as a user, i...",
+          ownerId: 4,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Comic Collections",
+          ownerId: 4,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Demo's Project",
           ownerId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: "Demo Project 2",
-          ownerId: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          name: "Demo Project 3",
-          ownerId: 1,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          name: "Demo Project 4",
+          name: "WUPHF.com",
           ownerId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: "Pied Piper",
+          ownerId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

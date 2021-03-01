@@ -3,14 +3,15 @@ import * as windowActions from "../../store/window";
 import * as storyActions from "../../store/story";
 import * as projectActions from "../../store/project";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useParams, Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import SideBar from "./SideBar";
 import Workspace from "../Workspace";
 import "./ProjectPage.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 function ProjectPage({ isLoaded }) {
   const [projectName, setProjectName] = useState("");
+  const sessionUser = useSelector((state) => state.session.user);
   const { projectId } = useParams();
   const dispatch = useDispatch();
   useEffect(async () => {
@@ -19,6 +20,7 @@ function ProjectPage({ isLoaded }) {
     );
     setProjectName(response);
   }, []);
+  if (!sessionUser) return <Redirect to="/" />;
   const onDragEnd = (result) => {
     if (!result.destination) return;
     if (result.type === "window") {

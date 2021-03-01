@@ -1,10 +1,10 @@
 /* hero styling*/
 .hero {
   position: relative;
-  height: 800px;
+  height: 1000px;
 }
 .hero__image {
-  height: 800px;
+  height: 1000px;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -50,4 +50,8 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.content__signup a:hover {
+  background-color: #f2a154;
 }

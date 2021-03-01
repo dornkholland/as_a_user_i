@@ -50,7 +50,6 @@
   box-sizing: border-box;
   height: 34px;
   color: white;
-  background-color: #00b2c1;
   border-radius: 3px;
   padding: 0px 10px;
   border: none;
@@ -65,8 +64,9 @@
   align-items: center;
   width: auto;
   position: absolute;
+  top: 15px;
   align-self: flex-start;
-  background-color: white;
+  background-color: #f9f7f7;
   margin: auto;
 }
 .profileContainer__avatar {
@@ -75,11 +75,14 @@
   height: 50px;
   width: 50px;
 }
+.profileContainer__avatar:hover {
+  background-color: darkOrange;
+}
 
 /* dropdown stylings */
 .profile-dropdown {
   margin-top: 0;
-  border: 1px solid #f39e40;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 10px;
   display: flex;
   flex-direction: column;

@@ -1,9 +1,10 @@
 body {
-  background-color: rgb(243, 244, 244);
+  background-color: #dbe2ef;
 }
 
 .dashContainer {
   padding: 30px;
+  min-height: 100vh;
 }
 
 .dashContainer button {
@@ -54,7 +55,7 @@ body {
 
 .projectCard {
   border: 1px solid #dddddd;
-  background-color: white;
+  background-color: #f9f7f7;
   width: 500px;
   margin: 20px;
   color: #666666;
@@ -80,9 +81,17 @@ body {
   border: none;
 }
 
+.projectCard__header a:hover {
+  color: black;
+}
+
 .projectCard__header button {
   background-color: transparent;
   color: #666666;
+}
+
+.projectCard__header button:hover {
+  color: black;
 }
 
 .projectCard__details {
