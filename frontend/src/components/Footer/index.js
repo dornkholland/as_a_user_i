@@ -6,12 +6,12 @@ function Footer() {
         <h2>Developed by: </h2>
         <h1>Dorn Holland</h1>
       </div>
-      <button>
+      <a href="https://github.com/dornkholland">
         <i className="fab fa-github"></i>
-      </button>
-      <button>
+      </a>
+      <a href="https://www.linkedin.com/in/dorn-holland-0a22b6173/">
         <i className="fab fa-linkedin-in"></i>
-      </button>
+      </a>
     </div>
   );
 }
