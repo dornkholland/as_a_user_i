@@ -55,8 +55,12 @@ module.exports = (sequelize, DataTypes) => {
   );
   Story.associate = function (models) {
     // associations can be defined here
-    Story.hasMany(models.Comment, { foreignKey: "storyId" });
-    Story.belongsTo(models.Project, { foreignKey: "projectId" });
+    Story.hasMany(models.Comment, {
+      foreignKey: "storyId",
+    });
+    Story.belongsTo(models.Project, {
+      foreignKey: "projectId",
+    });
     Story.belongsTo(models.User, { foreignKey: "assignedUserId" });
   };
 
@@ -109,6 +113,8 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         id: storyId,
       },
+      truncate: true,
+      cascade: true,
     });
     return deleted;
   };

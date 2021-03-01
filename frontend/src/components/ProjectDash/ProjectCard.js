@@ -16,25 +16,33 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   };
   return (
     <div className="projectCard">
-      {!editing ? <Link to={`/project/${id}`}>{name}</Link> : null}
-      {editing ? (
-        <div>
-          <ProjectEditForm
-            projectId={id}
-            name={name}
-            editing={editing}
-            setEditing={setEditing}
-          />
+      {!editing ? (
+        <div className="projectCard__header">
+          <Link to={`/project/${id}`}>{name}</Link>
+          {isOwned ? (
+            <>
+              <button onClick={handleEdit}>
+                <i className="fas fa-edit fa-lg"></i>
+              </button>
+              <button onClick={handleDelete}>
+                <i className="far fa-trash-alt fa-lg"></i>
+              </button>
+            </>
+          ) : null}
         </div>
       ) : null}
-      <h2>Owned by: {owner}</h2>
-      {isOwned && !editing ? (
-        <>
-          <button onClick={handleEdit}>Edit</button>
-          <button onClick={handleDelete}>Delete</button>
-          <ProjectAddCollabForm id={id} />
-        </>
+      {editing ? (
+        <ProjectEditForm
+          projectId={id}
+          name={name}
+          editing={editing}
+          setEditing={setEditing}
+        />
       ) : null}
+      <div className="projectCard__details">
+        <h2>Owned by: {owner}</h2>
+        {isOwned ? <ProjectAddCollabForm id={id} /> : null}
+      </div>
     </div>
   );
 }

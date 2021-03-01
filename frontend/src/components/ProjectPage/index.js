@@ -1,14 +1,24 @@
+import Navigation from "../Navigation";
 import * as windowActions from "../../store/window";
 import * as storyActions from "../../store/story";
+import * as projectActions from "../../store/project";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import SideBar from "./SideBar";
 import Workspace from "../Workspace";
 import "./ProjectPage.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-function ProjectPage() {
+function ProjectPage({ isLoaded }) {
+  const [projectName, setProjectName] = useState("");
   const { projectId } = useParams();
   const dispatch = useDispatch();
+  useEffect(async () => {
+    const response = await dispatch(
+      projectActions.getProjectById({ projectId })
+    );
+    setProjectName(response);
+  }, []);
   const onDragEnd = (result) => {
     if (!result.destination) return;
     if (result.type === "window") {
@@ -44,12 +54,15 @@ function ProjectPage() {
     }
   };
   return (
-    <div className="projectPage">
-      <DragDropContext onDragEnd={onDragEnd}>
-        <SideBar />
-        <Workspace />
-      </DragDropContext>
-    </div>
+    <>
+      <Navigation isLoaded={isLoaded} projectName={projectName} />
+      <div className="projectPage">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <SideBar />
+          <Workspace />
+        </DragDropContext>
+      </div>
+    </>
   );
 }
 

@@ -21,8 +21,7 @@ function App() {
         <div>
           <Switch>
             <Route path="/project/:projectId">
-              <Navigation isLoaded={isLoaded} />
-              <ProjectPage />
+              <ProjectPage isLoaded={isLoaded} />
             </Route>
             <Route path="/projects">
               <Navigation isLoaded={isLoaded} />

@@ -12,6 +12,9 @@ function Window({ name, index }) {
   const handleCreateStory = () => {
     setCreateToggle((prev) => !prev);
   };
+  const handleMinimize = () => {
+    dispatch(windowActions.windowToggle(name));
+  };
   return (
     <Draggable draggableId={name} index={index} key={name}>
       {(provided) => (
@@ -23,9 +26,14 @@ function Window({ name, index }) {
         >
           <div className="windowHeader">
             <h2>{name}</h2>
-            {["IceBox", "Backlog", "Issues"].includes(name) ? (
-              <button onClick={handleCreateStory}>+</button>
-            ) : null}
+            <div className="windowHeader__buttons">
+              {["IceBox", "Backlog", "Issues"].includes(name) ? (
+                <button onClick={handleCreateStory}>+</button>
+              ) : null}
+              <button onClick={handleMinimize}>
+                <i className="fas fa-window-minimize"></i>
+              </button>
+            </div>
           </div>
           {createToggle ? (
             <StoryMaximized

@@ -52,6 +52,16 @@ router.get(
   })
 );
 
+// route for getting project by id
+router.get(
+  "/:projectId",
+  asyncHandler(async (req, res) => {
+    const { projectId } = req.params;
+    const project = await Project.findByPk(projectId);
+    return res.json({ project });
+  })
+);
+
 // Route for create project on project dash
 router.post(
   "/",

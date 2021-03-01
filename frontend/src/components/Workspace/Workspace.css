@@ -1,6 +1,7 @@
 .windowContainer {
   display: flex;
   flex-direction: row;
+  float: left;
 }
 
 .windowContainer > li {
