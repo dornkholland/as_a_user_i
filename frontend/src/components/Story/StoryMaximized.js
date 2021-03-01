@@ -134,9 +134,9 @@ const StoryMaximized = ({
     <div className="maxStory">
       <div className="maxStory__header">
         {storyType === "Feature" ? (
-          <h1>as a user, i can...</h1>
+          <h1 className="header--feature">as a user, i can...</h1>
         ) : storyType === "Bug" ? (
-          <h1>as a user, i should be able to... </h1>
+          <h1 className="header--bug">as a user, i should be able to... </h1>
         ) : null}
         {!creator ? (
           <>
@@ -148,7 +148,9 @@ const StoryMaximized = ({
             {storyStatus === "Awaiting Review" ? (
               <button onClick={handleRejection}>Reject</button>
             ) : null}
-            <button onClick={handleCollapse}>Collapse</button>
+            <button onClick={handleCollapse}>
+              <i className="fas fa-window-minimize"></i>
+            </button>
           </>
         ) : (
           <button onClick={cancelCreationHandler}>cancel</button>
@@ -159,25 +161,39 @@ const StoryMaximized = ({
           value={storyName}
           onChange={(e) => setStoryName(e.target.value)}
         />
-        <div className="maxStory__dropdowns">
-          <select
-            value={storyType}
-            onChange={(e) => setStoryType(e.target.value)}
-          >
-            <option value="Feature">Feature</option>
-            <option value="Bug">Bug</option>
-            <option value="Other">Other</option>
-          </select>
-          <select
-            value={storySize}
-            onChange={(e) => setStorySize(e.target.value)}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="4">4</option>
-            <option value="8">8</option>
-          </select>
-          {!creator ? <h1>status: {storyStatus}</h1> : null}
+        <div className="maxStory__info">
+          <div className="maxStory__dropdowns">
+            <label htmlFor="storyType">
+              Type:
+              <select
+                id="storyType"
+                value={storyType}
+                onChange={(e) => setStoryType(e.target.value)}
+              >
+                <option value="Feature">Feature</option>
+                <option value="Bug">Bug</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+            <label htmlFor="storySize">
+              Size:
+              <select
+                value={storySize}
+                onChange={(e) => setStorySize(e.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="8">8</option>
+              </select>
+            </label>
+          </div>
+          {!creator ? (
+            <div className="info__status">
+              <h3>status:</h3>
+              <h2>{storyStatus}</h2>
+            </div>
+          ) : null}
         </div>
         <textarea
           value={storyDescription}
@@ -189,8 +205,10 @@ const StoryMaximized = ({
       </form>
       {!creator ? (
         <>
-          <button onClick={deleteStoryHandler}>Delete story</button>
           <CommentContainer story={story} />
+          <button className="deleteStoryButton" onClick={deleteStoryHandler}>
+            Delete story
+          </button>
         </>
       ) : null}
     </div>

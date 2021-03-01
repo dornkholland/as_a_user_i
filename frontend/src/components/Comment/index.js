@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import * as commentActions from "../../store/comment";
 import { useDispatch, useSelector } from "react-redux";
+import "./Comment.css";
 function Comment({ comment }) {
   const sessionUser = useSelector((state) => state.session.user);
   const isMine = comment.userId === sessionUser.id;
@@ -17,10 +18,16 @@ function Comment({ comment }) {
     );
   };
   return (
-    <div>
-      <p>posted by: {comment.User.name}</p>
-      <p>{comment.description}</p>
-      {isMine ? <button onClick={handleDelete}>delete</button> : null}
+    <div className="comment">
+      <div className="commentHeader">
+        <p>posted by: {comment.User.name}</p>
+        {isMine ? (
+          <button onClick={handleDelete}>
+            <i className="far fa-trash-alt "></i>
+          </button>
+        ) : null}
+      </div>
+      <p className="comment__description">{comment.description}</p>
     </div>
   );
 }

@@ -36,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
   );
   Comment.associate = function (models) {
     Comment.belongsTo(models.User, { foreignKey: "userId" });
-    Comment.belongsTo(models.Story, { foreignKey: "storyId" });
+    Comment.belongsTo(models.Story, {
+      foreignKey: "storyId",
+      onDelete: "cascade",
+    });
     // associations can be defined here
   };
 
@@ -56,4 +59,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Comment;
 };
-
