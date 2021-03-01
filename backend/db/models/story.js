@@ -113,7 +113,6 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         id: storyId,
       },
-      truncate: true,
       cascade: true,
     });
     return deleted;

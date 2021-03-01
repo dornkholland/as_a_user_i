@@ -69,7 +69,6 @@ module.exports = (sequelize, DataTypes) => {
         id: projectId,
       },
       cascade: true,
-      truncate: true,
     });
     return project;
   };
