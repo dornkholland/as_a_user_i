@@ -2,6 +2,7 @@ import { Switch, Route } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import LoginFormPage from "./components/LoginFormPage";
+import Footer from "./components/Footer";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Landing from "./components/Landing";
@@ -40,6 +41,7 @@ function App() {
           </Switch>
         </div>
       )}
+      <Footer />
     </>
   );
 }

@@ -36,12 +36,22 @@ button {
   box-sizing: border-box;
   height: 34px;
   color: white;
-  background-color: #00b2c1;
+  background-color: #3f72af;
   border-radius: 3px;
   padding: 0px 10px;
   border: none;
   font-size: 18px;
   cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #112d4e;
+}
+a {
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;

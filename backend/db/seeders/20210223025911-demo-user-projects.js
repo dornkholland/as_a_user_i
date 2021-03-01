@@ -19,19 +19,13 @@ module.exports = {
         },
         {
           userId: 1,
-          projectId: 3,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          userId: 2,
-          projectId: 2,
+          projectId: 4,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           userId: 1,
-          projectId: 4,
+          projectId: 5,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
