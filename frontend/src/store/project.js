@@ -44,6 +44,12 @@ export const getProjects = () => async (dispatch) => {
   return response;
 };
 
+export const getProjectById = ({ projectId }) => async (dispatch) => {
+  const response = await csrfFetch(`/api/projects/${projectId}`);
+  const data = await response.json();
+  return data.project.name;
+};
+
 /* create a project */
 export const createProject = (project) => async (dispatch) => {
   const { projectName } = project;

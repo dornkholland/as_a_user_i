@@ -1,16 +1,30 @@
 .window {
-  background-color: white;
+  background-color: #f9f7f7;
   min-height: 700px;
-  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+  display: grid;
+  grid-template-rows: 100px 1fr;
 }
 
 .windowHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  color: rgb(73, 80, 87);
+}
+
+.windowHeader__buttons {
+  padding-right: 20px;
+}
+
+.windowHeader__buttons > * {
+  margin: 0 3px;
+  width: 40px;
+  background-color: #3f72af;
 }
 
 .storyContainer {
-  background-color: lightGrey;
+  background-color: #dbe2ef;
   min-height: 500px;
 }

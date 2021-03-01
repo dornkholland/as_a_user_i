@@ -6,7 +6,9 @@ const StoryMinimized = ({ setIsMax, story }) => {
     <div className="miniStory">
       <div className="miniStory__header">
         <p>{story.name}</p>
-        <button onClick={handleMaximize}>max</button>
+        <button onClick={handleMaximize}>
+          <i className="fas fa-window-maximize fa-lg"></i>
+        </button>
       </div>
       <div className="miniStory__details">
         <p>{story.storyType}</p>

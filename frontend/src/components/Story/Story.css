@@ -1,15 +1,29 @@
 /* minimized story stylings */
 .miniStory {
   border: 1px solid black;
-  padding: 1px 3px;
+  padding: 0px 0px 5px 0px;
 }
 .miniStory__header {
   display: grid;
-  grid-template-columns: 1fr 50px;
+  grid-template-columns: 1fr 30px;
+  height: auto;
 }
 .miniStory__details {
   display: flex;
   justify-content: space-evenly;
+}
+.miniStory__header p {
+  padding: 10px;
+  font-weight: bolder;
+}
+
+.miniStory button {
+  padding: 0;
+  background-color: transparent;
+  color: #112d4e;
+  margin: 0;
+  margin-bottom: auto;
+  height: auto;
 }
 
 /* maximized story stylings */

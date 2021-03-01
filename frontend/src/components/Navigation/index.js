@@ -6,7 +6,7 @@ import DemoUser from "../DemoUser";
 import Logo from "./Logo";
 import "./Navigation.css";
 
-function Navigation({ isLoaded }) {
+function Navigation({ projectName, isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
@@ -27,6 +27,7 @@ function Navigation({ isLoaded }) {
       <NavLink className="navbar__logo" exact to="/">
         <Logo />
       </NavLink>
+      <h1>{projectName}</h1>
       {isLoaded && sessionLinks}
     </div>
   );
