@@ -13,6 +13,19 @@ router.get(
       windowName,
       projectId,
     });
+    console.log(stories);
+
+    return res.json({ stories });
+  })
+);
+
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const { projectId } = req.params;
+    const stories = await Story.getStories({
+      projectId,
+    });
 
     return res.json({ stories });
   })

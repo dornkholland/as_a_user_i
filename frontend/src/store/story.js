@@ -58,6 +58,12 @@ export const getStoriesByWindow = ({ windowName, projectId }) => async (
   return dispatch(loadStories(data));
 };
 
+export const getStories = ({ projectId }) => async (dispatch) => {
+  const response = await csrfFetch(`/api/projects/${projectId}/stories/`);
+  const data = await response.json();
+  return dispatch(loadStories(data));
+};
+
 export const createStory = ({
   projectId,
   storyName,
@@ -93,6 +99,9 @@ export const updateStory = ({
   windowName,
   previousWindow,
 }) => async (dispatch) => {
+  const toDelete = { id: storyId, window: previousWindow, projectId };
+  dispatch(removeStory(toDelete));
+
   const response = await csrfFetch(
     `/api/projects/${projectId}/stories/${windowName}/${storyId}`,
     {
@@ -127,73 +136,31 @@ const storyReducer = (state = initialState, action) => {
   const newState = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case LOAD:
+      //normalize stories by id in object on project page load
       if (action.payload.stories.length) {
-        const projectId = action.payload.stories[0].projectId;
-        const windowName = action.payload.stories[0].window;
-        newState.stories[projectId] = { ...newState.stories[projectId] };
-        newState.stories[projectId][windowName] = action.payload.stories;
-      }
-      return newState;
-    case SET_STORY:
-      const projectId = action.payload.projectId;
-      const windowName = action.payload.window;
-      newState.stories[projectId] = { ...newState.stories[projectId] };
-      if (!newState.stories[projectId][windowName]) {
-        newState.stories[projectId][windowName] = [];
-      }
-      const stories = newState.stories[projectId][windowName];
-      if (stories.find((story) => story.id === action.payload.id)) {
-        newState.stories[projectId][windowName] = newState.stories[projectId][
-          windowName
-        ].map((story) => {
-          if (story.id !== action.payload.id) {
-            return story;
-          } else {
-            return action.payload;
-          }
+        action.payload.stories.map((ele) => {
+          newState.stories[ele.id] = ele;
         });
-      } else {
-        const projectId = action.payload.projectId;
-        const windowName = action.payload.window;
-        const previousWindow = action.payload.previousWindow;
-        if (previousWindow) {
-          newState.stories[projectId][previousWindow] = newState.stories[
-            projectId
-          ][previousWindow].filter((story) => story.id !== action.payload.id);
-        }
-        newState.stories[projectId][windowName].unshift(action.payload);
-      }
-      return newState;
-    case REMOVE_STORY:
-      if (true) {
-        const projectId = action.payload.projectId;
-        const windowName = action.payload.window;
-        newState.stories[projectId][windowName] = newState.stories[projectId][
-          windowName
-        ].filter((story) => story.id !== action.payload.id);
       }
       return newState;
 
+    case SET_STORY:
+      const stories = newState.stories;
+      //check if update or creation
+      stories[action.payload.id] = action.payload;
+      return newState;
+    case REMOVE_STORY:
+      delete newState.stories[action.payload.id];
+      return newState;
+
     case MOVE_STORY:
-      if (true) {
-        const projectId = action.payload.projectId;
-        const windowName = action.payload.windowName;
-        const story = action.payload.story;
-        const storyArray = newState.stories[projectId][windowName];
-        let toRemove = storyArray.find((element) => element.id === story.id);
-        console.log(story);
-        console.log(newState.stories[projectId][story.window]);
-        if (toRemove) {
-          newState.stories[projectId][windowName] = storyArray.filter(
-            (ele) => ele.id !== story.id
-          );
-          newState.stories[projectId][windowName].splice(
-            action.payload.destId,
-            0,
-            toRemove
-          );
-        }
-      }
+      //if (toRemove) {
+      //  newState.stories[projectId][windowName].splice(
+      //    action.payload.destId,
+      //    0,
+      //    toRemove
+      //  );
+      //}
       return newState;
     default:
       return state;

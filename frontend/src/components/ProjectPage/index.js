@@ -19,8 +19,11 @@ function ProjectPage({ isLoaded }) {
       projectActions.getProjectById({ projectId })
     );
     setProjectName(response);
+    await dispatch(storyActions.getStories({ projectId }));
   }, []);
   if (!sessionUser) return <Redirect to="/" />;
+
+  //dnd logic
   const onDragEnd = (result) => {
     if (!result.destination) return;
     if (result.type === "window") {

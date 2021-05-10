@@ -7,16 +7,10 @@ import Story from "../Story";
 const StoryContainer = ({ name }) => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
-  const allStories = useSelector((state) => state.story.stories);
-  const myStories =
-    allStories[projectId] && allStories[projectId][name]
-      ? allStories[projectId][name]
-      : [];
-  useEffect(() => {
-    const response = dispatch(
-      storyActions.getStoriesByWindow({ windowName: name, projectId })
-    );
-  }, [dispatch]);
+  const stories = useSelector((state) => state.story.stories);
+  const myStories = Object.values(stories).filter(
+    (story) => story.window === name
+  );
   return (
     <Droppable type="story" direction="vertical" droppableId={name}>
       {(provided) => (

@@ -64,6 +64,15 @@ module.exports = (sequelize, DataTypes) => {
     Story.belongsTo(models.User, { foreignKey: "assignedUserId" });
   };
 
+  Story.getStories = async function ({ projectId }) {
+    const stories = await Story.findAll({
+      where: {
+        projectId,
+      },
+    });
+    return stories;
+  };
+
   Story.getStoriesByWindow = async function ({ windowName, projectId }) {
     const stories = await Story.findAll({
       where: {
