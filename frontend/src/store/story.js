@@ -169,13 +169,15 @@ const storyReducer = (state = initialState, action) => {
       //update index of story
 
       const storyToMove = newState.stories[action.payload.story.id];
+      const oldWindow = storyToMove.window;
       newState.stories[storyToMove.id].index = action.payload.destId;
+      newState.stories[storyToMove.id].window = action.payload.windowName;
 
       // update indices of old window
       Object.values(newState.stories)
         .filter((story) => {
           return (
-            story.window === storyToMove.window &&
+            story.window === oldWindow &&
             story.index > action.payload.sourceId &&
             story.id !== storyToMove.id
           );
