@@ -69,17 +69,21 @@ router.post(
       storyDescription,
       storySize,
       windowName,
+      index,
     } = req.body;
+    console.log(index);
     const { projectId } = req.params;
     const dataObj = {
       name: storyName,
       window: windowName,
+      index,
       storyType,
       description: storyDescription,
       size: storySize,
       status: storyStatus,
       projectId,
     };
+    console.log(dataObj.index);
     const story = await Story.createStory(dataObj);
     return res.json({ story });
   })

@@ -72,7 +72,9 @@ export const createStory = ({
   storyStatus,
   storyDescription,
   windowName,
+  index,
 }) => async (dispatch) => {
+  console.log(index);
   const response = await csrfFetch(`/api/projects/${projectId}/stories/`, {
     method: "POST",
     body: JSON.stringify({
@@ -82,6 +84,7 @@ export const createStory = ({
       storyStatus,
       storyDescription,
       windowName,
+      index,
     }),
   });
   const data = await response.json();

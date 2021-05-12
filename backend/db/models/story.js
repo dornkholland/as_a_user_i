@@ -111,6 +111,7 @@ module.exports = (sequelize, DataTypes) => {
     const story = await Story.create({
       name: storyData.name,
       window: storyData.window,
+      index: storyData.index,
       description: storyData.description,
       size: storyData.size,
       status: storyData.status,

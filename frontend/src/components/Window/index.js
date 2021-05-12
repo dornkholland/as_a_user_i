@@ -9,12 +9,15 @@ function Window({ name, index }) {
   const dispatch = useDispatch();
   const allStories = useSelector((state) => state.story.stories);
   const [createToggle, setCreateToggle] = useState(false);
+
   const handleCreateStory = () => {
     setCreateToggle((prev) => !prev);
   };
+
   const handleMinimize = () => {
     dispatch(windowActions.windowToggle(name));
   };
+
   return (
     <Draggable draggableId={name} index={index} key={name}>
       {(provided) => (
