@@ -93,8 +93,11 @@ router.delete(
   "/:storyId",
   asyncHandler(async (req, res) => {
     const { storyId } = req.params;
-    const deleted = await Story.getStoryById({ storyId });
-    await Story.deleteStory({ storyId });
+    const story = await Story.getStoryById({ storyId });
+    await Story.deleteStory({ story });
+
+    //update indices of other stories in windows
+
     return res.json({ deleted });
   })
 );

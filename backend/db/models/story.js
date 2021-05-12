@@ -1,5 +1,5 @@
 "use strict";
-const { Validator } = require("sequelize");
+const { Validator, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   const Story = sequelize.define(
     "Story",
@@ -122,13 +122,22 @@ module.exports = (sequelize, DataTypes) => {
     return story;
   };
 
-  Story.deleteStory = async function ({ storyId }) {
+  Story.deleteStory = async function ({ story }) {
     const deleted = await Story.destroy({
       where: {
-        id: storyId,
+        id: story.id,
       },
       cascade: true,
     });
+    Story.decrement("index", {
+      by: 1,
+      where: {
+        index: { [Op.gt]: story.index },
+        window: story.window,
+        projectId: story.projectId,
+      },
+    });
+
     return deleted;
   };
 
