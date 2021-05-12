@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      index: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       storyType: {
         type: DataTypes.STRING,
         allowNull: false,
