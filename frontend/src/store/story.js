@@ -36,7 +36,7 @@ const moveStory = (coords) => {
   };
 };
 
-export const storyReorder = ({ coords, projectId }) => (dispatch) => {
+export const storyReorder = ({ coords, projectId }) => async (dispatch) => {
   const coordsObj = {
     story: JSON.parse(coords.draggableId),
     sourceId: coords.source.index,
@@ -45,6 +45,14 @@ export const storyReorder = ({ coords, projectId }) => (dispatch) => {
     projectId,
   };
   const response = dispatch(moveStory(coordsObj));
+  const request = await csrfFetch(`/api/projects/${projectId}/stories/move/`, {
+    method: "PUT",
+    body: JSON.stringify({
+      coordsObj,
+    }),
+  });
+  const data = await request.json();
+
   return response;
 };
 
@@ -172,11 +180,6 @@ const storyReducer = (state = initialState, action) => {
       return newState;
 
     case MOVE_STORY:
-      console.log(action.payload.story);
-      console.log(action.payload.sourceId);
-      console.log(action.payload.destId);
-      console.log(action.payload.windowName);
-
       //update index of story
 
       const storyToMove = newState.stories[action.payload.story.id];

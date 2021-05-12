@@ -1,5 +1,6 @@
 const router = require("express").Router({ mergeParams: true });
 const asyncHandler = require("express-async-handler");
+const { Op } = require("sequelize");
 const { Story } = require("../../db/models");
 
 const commentRouter = require("./comments.js");
@@ -56,6 +57,47 @@ router.patch(
     const story = await Story.getStoryById({ storyId });
 
     return res.json({ story });
+  })
+);
+
+router.put(
+  "/move/",
+  asyncHandler(async (req, res) => {
+    console.log(req.body);
+    const { sourceId, destId, windowName } = req.body.coordsObj;
+    const { projectId } = req.params;
+    const dataObj = {};
+    const storyToMove = req.body.coordsObj.story;
+
+    //update index of moved story
+    Story.update(
+      { index: destId, window: windowName },
+      { where: { id: storyToMove.id } }
+    );
+
+    //update indices of old window
+    Story.decrement("index", {
+      by: 1,
+      where: {
+        index: { [Op.gt]: sourceId },
+        window: storyToMove.window,
+        projectId: storyToMove.projectId,
+        id: { [Op.ne]: storyToMove.id },
+      },
+    });
+
+    //update indices of new window
+    Story.increment("index", {
+      by: 1,
+      where: {
+        index: { [Op.gte]: destId },
+        window: storyToMove.window,
+        projectId: storyToMove.projectId,
+        id: { [Op.ne]: storyToMove.id },
+      },
+    });
+
+    return res.json({ storyToMove });
   })
 );
 
