@@ -12,7 +12,7 @@ const StoryMaximized = ({
   setIsMax,
 }) => {
   const dispatch = useDispatch();
-  const thisStory = useSelector((state) => state.story.stories);
+  const stories = useSelector((state) => state.story.stories);
   const { projectId } = useParams();
 
   const storyNameHandler = () => (story && story.name ? story.name : "");
@@ -61,6 +61,9 @@ const StoryMaximized = ({
           storyDescription,
           projectId,
           windowName,
+          index: Object.values(stories).filter(
+            (story) => story.window === windowName
+          ).length,
         })
       );
       setCreateToggle(false);

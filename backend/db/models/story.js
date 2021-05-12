@@ -1,5 +1,5 @@
 "use strict";
-const { Validator } = require("sequelize");
+const { Validator, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   const Story = sequelize.define(
     "Story",
@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       window: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      index: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       storyType: {
@@ -64,6 +68,15 @@ module.exports = (sequelize, DataTypes) => {
     Story.belongsTo(models.User, { foreignKey: "assignedUserId" });
   };
 
+  Story.getStories = async function ({ projectId }) {
+    const stories = await Story.findAll({
+      where: {
+        projectId,
+      },
+    });
+    return stories;
+  };
+
   Story.getStoriesByWindow = async function ({ windowName, projectId }) {
     const stories = await Story.findAll({
       where: {
@@ -98,6 +111,7 @@ module.exports = (sequelize, DataTypes) => {
     const story = await Story.create({
       name: storyData.name,
       window: storyData.window,
+      index: storyData.index,
       description: storyData.description,
       size: storyData.size,
       status: storyData.status,
@@ -108,13 +122,22 @@ module.exports = (sequelize, DataTypes) => {
     return story;
   };
 
-  Story.deleteStory = async function ({ storyId }) {
+  Story.deleteStory = async function ({ story }) {
     const deleted = await Story.destroy({
       where: {
-        id: storyId,
+        id: story.id,
       },
       cascade: true,
     });
+    Story.decrement("index", {
+      by: 1,
+      where: {
+        index: { [Op.gt]: story.index },
+        window: story.window,
+        projectId: story.projectId,
+      },
+    });
+
     return deleted;
   };
 

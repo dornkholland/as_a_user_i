@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      index: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       storyType: {
         type: Sequelize.STRING,
         allowNull: false,
