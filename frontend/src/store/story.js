@@ -131,7 +131,8 @@ export const deleteStory = ({ projectId, storyId }) => async (dispatch) => {
     }
   );
   const data = await response.json();
-  return dispatch(removeStory(data.deleted));
+  console.log(data);
+  return dispatch(removeStory(data.story));
 };
 
 const initialState = { stories: {} };
@@ -152,18 +153,25 @@ const storyReducer = (state = initialState, action) => {
       //check if update or creation
       stories[action.payload.id] = action.payload;
       return newState;
+
     case REMOVE_STORY:
+      let deletedStory = newState.stories[action.payload.id];
+
       delete newState.stories[action.payload.id];
+
+      //update indices of other stories after deleting
+      Object.values(newState.stories)
+        .filter(
+          (story) =>
+            story.window === deletedStory.window &&
+            story.index > deletedStory.index &&
+            story.projectId === deletedStory.projectId
+        )
+        .forEach((story) => newState.stories[story.id].index--);
+
       return newState;
 
     case MOVE_STORY:
-      //const coordsObj = {
-      //  story: JSON.parse(coords.draggableId),
-      //  sourceId: coords.source.index,
-      //  destId: coords.destination.index,
-      //  windowName: coords.destination.droppableId,
-      //  projectId,
-      //};
       console.log(action.payload.story);
       console.log(action.payload.sourceId);
       console.log(action.payload.destId);

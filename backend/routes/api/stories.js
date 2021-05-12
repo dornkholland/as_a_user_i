@@ -98,7 +98,7 @@ router.delete(
 
     //update indices of other stories in windows
 
-    return res.json({ deleted });
+    return res.json({ story });
   })
 );
 
