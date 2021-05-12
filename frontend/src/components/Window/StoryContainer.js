@@ -8,9 +8,12 @@ const StoryContainer = ({ name }) => {
   const { projectId } = useParams();
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
-  const myStories = Object.values(stories).filter(
-    (story) => story.window === name
-  );
+
+  //filters out non matching window stories and then sorts by index.
+  const myStories = Object.values(stories)
+    .filter((story) => story.window === name)
+    .sort((a, b) => (a.index > b.index ? 1 : -1));
+
   return (
     <Droppable type="story" direction="vertical" droppableId={name}>
       {(provided) => (

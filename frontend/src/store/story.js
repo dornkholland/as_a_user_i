@@ -154,13 +154,54 @@ const storyReducer = (state = initialState, action) => {
       return newState;
 
     case MOVE_STORY:
-      //if (toRemove) {
-      //  newState.stories[projectId][windowName].splice(
-      //    action.payload.destId,
-      //    0,
-      //    toRemove
-      //  );
-      //}
+      //const coordsObj = {
+      //  story: JSON.parse(coords.draggableId),
+      //  sourceId: coords.source.index,
+      //  destId: coords.destination.index,
+      //  windowName: coords.destination.droppableId,
+      //  projectId,
+      //};
+      console.log(action.payload.story);
+      console.log(action.payload.sourceId);
+      console.log(action.payload.destId);
+      console.log(action.payload.windowName);
+
+      //update index of story
+
+      const storyToMove = newState.stories[action.payload.story.id];
+      newState.stories[storyToMove.id].index = action.payload.destId;
+
+      // update indices of old window
+      Object.values(newState.stories)
+        .filter((story) => {
+          return (
+            story.window === storyToMove.window &&
+            story.index > action.payload.sourceId &&
+            story.id !== storyToMove.id
+          );
+        })
+        .forEach((story) => {
+          console.log(story);
+          newState.stories[story.id].index--;
+          console.log(newState.stories[story.id]);
+        });
+
+      // update indices of new window
+      Object.values(newState.stories)
+        .filter((story) => {
+          return (
+            story.window === action.payload.windowName &&
+            story.index >= action.payload.destId &&
+            story.id !== storyToMove.id
+          );
+        })
+
+        .forEach((story) => {
+          console.log(story);
+          newState.stories[story.id].index++;
+          console.log(newState.stories[story.id]);
+        });
+
       return newState;
     default:
       return state;

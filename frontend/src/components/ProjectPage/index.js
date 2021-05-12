@@ -14,10 +14,12 @@ function ProjectPage({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const { projectId } = useParams();
   const dispatch = useDispatch();
+
   useEffect(async () => {
     const response = await dispatch(
       projectActions.getProjectById({ projectId })
     );
+
     setProjectName(response);
     await dispatch(storyActions.getStories({ projectId }));
   }, []);
@@ -28,34 +30,25 @@ function ProjectPage({ isLoaded }) {
     if (!result.destination) return;
     if (result.type === "window") {
       dispatch(windowActions.windowReorder(result));
-    } else if (result.source.droppableId !== result.destination.droppableId) {
-      const newWindow = result.destination.droppableId;
-      const story = JSON.parse(result.draggableId);
-      let newStatus = newWindow;
-      let newWindowArray = ["Backlog", "IceBox", "Issues"];
-      if (newWindowArray.includes(newWindow)) {
-        newStatus = "Unstarted";
-      }
-      dispatch(
-        storyActions.updateStory({
-          projectId,
-          storyId: story.id,
-          storyName: story.name,
-          storyType: story.storyType,
-          storySize: story.size,
-          storyStatus: newStatus,
-          storyDescription: story.description,
-          previousWindow: story.window,
-          windowName: newWindow,
-        })
-      );
     } else {
-      dispatch(
-        storyActions.storyReorder({
-          coords: result,
-          projectId,
-        })
-      );
+      const story = JSON.parse(result.draggableId);
+      const newWindow = result.destination.droppableId;
+      if (
+        story.window !== newWindow ||
+        result.source.index !== result.destination.index
+      ) {
+        console.log(result);
+        let newWindowArray = ["Backlog", "IceBox", "Issues"];
+        if (newWindowArray.includes(newWindow)) {
+          //newStatus = "Unstarted";
+        }
+        dispatch(
+          storyActions.storyReorder({
+            coords: result,
+            projectId,
+          })
+        );
+      }
     }
   };
   return (
