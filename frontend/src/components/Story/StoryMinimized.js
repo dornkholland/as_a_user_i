@@ -2,6 +2,9 @@ const StoryMinimized = ({ setIsMax, story }) => {
   const handleMaximize = () => {
     setIsMax(true);
   };
+
+  const unstartedWindows = ["Backlog", "Icebox", "Issues"];
+
   return (
     <div className="miniStory">
       <div className="miniStory__header">
@@ -13,7 +16,10 @@ const StoryMinimized = ({ setIsMax, story }) => {
       <div className="miniStory__details">
         <p>{story.storyType}</p>
         <p>size: {story.size}</p>
-        <p>status: {story.status}</p>
+        <p>
+          status:{" "}
+          {unstartedWindows.includes(story.window) ? "Unstarted" : story.window}
+        </p>
       </div>
     </div>
   );
