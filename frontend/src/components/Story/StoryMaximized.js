@@ -24,7 +24,16 @@ const StoryMaximized = ({
   const [storySize, setStorySize] = useState(storySizeHandler);
   const storyStatusHandler = () =>
     story && story.status ? story.status : "Unstarted";
-  const [storyStatus, setStoryStatus] = useState(storyStatusHandler());
+
+  const unstartedWindows = ["Backlog", "Issues", "Icebox"];
+
+  const [storyStatus, setStoryStatus] = useState(
+    !creator
+      ? unstartedWindows.includes(story.window)
+        ? "Unstarted"
+        : story.window
+      : "Unstarted"
+  );
   const storyDescriptionHandler = () =>
     story && story.description ? story.description : "";
   const [storyDescription, setStoryDescription] = useState(
@@ -86,38 +95,53 @@ const StoryMaximized = ({
 
   const stateUpdate = (newWindow, newStatus) => {
     dispatch(
-      storyActions.updateStory({
-        storyId: story.id,
-        storyName,
-        storyType,
-        storySize,
-        storyStatus: newStatus,
-        storyDescription,
-        projectId,
-        windowName: newWindow,
-        previousWindow: windowName,
+      storyActions.storyReorder({
+        coords: {
+          draggableId: JSON.stringify(story),
+          source: {
+            index: story.index,
+          },
+          destination: {
+            index: Object.values(stories).filter(
+              (story) => story.window === newWindow
+            ).length,
+            droppableId: newWindow,
+          },
+          projectId,
+        },
       })
     );
+    //      storyActions.updateStory({
+    //        storyId: story.id,
+    //        storyName,
+    //        storyType,
+    //        storySize,
+    //        storyStatus: newStatus,
+    //        storyDescription,
+    //        projectId,
+    //        windowName: newWindow,
+    //        previousWindow: windowName,
+    //      })
     setIsMax(false);
   };
 
   const handleStateChange = () => {
     switch (storyStatus) {
       case "Unstarted":
-        return stateUpdate("In Progress", "In Progress");
+        return stateUpdate("In Progress");
       case "In Progress":
-        return stateUpdate("Awaiting Review", "Awaiting Review");
+        return stateUpdate("Awaiting Review");
       case "Awaiting Review":
-        return stateUpdate("Done", "Done");
+        return stateUpdate("Done");
       case "Rejected":
-        return stateUpdate("Backlog", "Unstarted");
+        return stateUpdate("Backlog");
       default:
         return;
     }
   };
 
   const handleRejection = () => {
-    return stateUpdate("Rejected", "Rejected");
+    return stateUpdate("Rejected");
   };
 
   function stateButton(storyStatus) {
