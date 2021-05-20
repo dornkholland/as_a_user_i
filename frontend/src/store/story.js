@@ -149,12 +149,13 @@ const storyReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD:
       //normalize stories by id in object on project page load
+      tempState = {};
       if (action.payload.stories.length) {
         action.payload.stories.map((ele) => {
-          newState.stories[ele.id] = ele;
+          tempState.stories[ele.id] = ele;
         });
       }
-      return newState;
+      return tempState;
 
     case SET_STORY:
       const stories = newState.stories;
