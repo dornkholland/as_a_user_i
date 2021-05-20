@@ -3,6 +3,7 @@ const { Project, User, UserProject } = require("../../db/models");
 const { restoreUser } = require("../../utils/auth");
 const asyncHandler = require("express-async-handler");
 const { Op } = require("sequelize");
+const { handleValidationErrors } = require("../../utils/validation");
 
 //route for stories
 const storiesRouter = require("./stories.js");
@@ -66,6 +67,7 @@ router.get(
 router.post(
   "/",
   restoreUser,
+  [handleValidationErrors],
   asyncHandler(async (req, res) => {
     const { user } = req;
     /* query to create project in projects table */

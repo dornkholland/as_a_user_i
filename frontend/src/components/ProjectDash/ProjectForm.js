@@ -4,14 +4,27 @@ import React, { useState } from "react";
 
 function ProjectForm() {
   const [projectName, setProjectName] = useState("");
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(projectActions.createProject({ projectName }));
+    const response = await dispatch(
+      projectActions.createProject({ projectName })
+    );
+    if (response.errors) {
+      setErrors(response.errors);
+    }
     setProjectName("");
   };
   return (
     <div className="projectCreator">
+      {errors ? (
+        <ul>
+          {errors.map((error) => (
+            <li>error</li>
+          ))}
+        </ul>
+      ) : null}
       <form onSubmit={handleSubmit}>
         <input
           value={projectName}

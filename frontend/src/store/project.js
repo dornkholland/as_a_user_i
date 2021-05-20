@@ -60,8 +60,9 @@ export const createProject = (project) => async (dispatch) => {
     }),
   });
   const data = await response.json();
+  console.log(data);
   dispatch(addProject(data.newProject));
-  return response;
+  return data.newProject;
 };
 
 export const editProject = (project) => async (dispatch) => {
