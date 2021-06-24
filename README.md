@@ -1,5 +1,5 @@
 # as a user, i...
-To see the production website, check out our live deployed link: https://as-a-user-i.herokuapp.com/projects
+To see the production website, check out our live deployed link: https://asauseri.herokuapp.com/
 
 # General Description
 
