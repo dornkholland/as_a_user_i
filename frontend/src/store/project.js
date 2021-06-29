@@ -60,7 +60,6 @@ export const createProject = (project) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  console.log(data);
   dispatch(addProject(data.newProject));
   return data.newProject;
 };
@@ -83,7 +82,6 @@ export const deleteProject = (project) => async (dispatch) => {
     method: "DELETE",
   });
   const data = await response.json();
-  console.log(data);
   return dispatch(removeProject(Number(data.project)));
 };
 

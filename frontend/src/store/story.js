@@ -82,7 +82,6 @@ export const createStory = ({
   windowName,
   index,
 }) => async (dispatch) => {
-  console.log(index);
   const response = await csrfFetch(`/api/projects/${projectId}/stories/`, {
     method: "POST",
     body: JSON.stringify({
@@ -139,7 +138,6 @@ export const deleteStory = ({ projectId, storyId }) => async (dispatch) => {
     }
   );
   const data = await response.json();
-  console.log(data);
   return dispatch(removeStory(data.story));
 };
 
@@ -198,9 +196,7 @@ const storyReducer = (state = initialState, action) => {
           );
         })
         .forEach((story) => {
-          console.log(story);
           newState.stories[story.id].index--;
-          console.log(newState.stories[story.id]);
         });
 
       // update indices of new window
@@ -214,9 +210,7 @@ const storyReducer = (state = initialState, action) => {
         })
 
         .forEach((story) => {
-          console.log(story);
           newState.stories[story.id].index++;
-          console.log(newState.stories[story.id]);
         });
 
       return newState;

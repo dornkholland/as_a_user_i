@@ -37,7 +37,6 @@ function ProjectPage({ isLoaded }) {
         story.window !== newWindow ||
         result.source.index !== result.destination.index
       ) {
-        console.log(result);
         let newWindowArray = ["Backlog", "IceBox", "Issues"];
         if (newWindowArray.includes(newWindow)) {
           //newStatus = "Unstarted";

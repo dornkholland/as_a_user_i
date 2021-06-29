@@ -14,7 +14,6 @@ router.get(
       windowName,
       projectId,
     });
-    console.log(stories);
 
     return res.json({ stories });
   })
@@ -63,7 +62,6 @@ router.patch(
 router.put(
   "/move/",
   asyncHandler(async (req, res) => {
-    console.log(req.body);
     const { sourceId, destId, windowName } = req.body.coordsObj;
     const { projectId } = req.params;
     const dataObj = {};
@@ -113,7 +111,6 @@ router.post(
       windowName,
       index,
     } = req.body;
-    console.log(index);
     const { projectId } = req.params;
     const dataObj = {
       name: storyName,
@@ -125,7 +122,6 @@ router.post(
       status: storyStatus,
       projectId,
     };
-    console.log(dataObj.index);
     const story = await Story.createStory(dataObj);
     return res.json({ story });
   })

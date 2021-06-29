@@ -152,7 +152,6 @@ router.post(
     const previous = await UserProject.findAll({
       where: { projectId, userId: collaboratorId },
     });
-    console.log(previous);
     if (previous.length === 0) {
       await UserProject.createProject(collaboratorId, projectId);
       return res.json({
