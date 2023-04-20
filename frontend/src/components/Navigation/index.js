@@ -24,7 +24,7 @@ function Navigation({ projectName, isLoaded }) {
 
   return (
     <div className="navbar">
-      <NavLink className="navbar__logo" exact to="/">
+      <NavLink className="navbar__logo" to="/">
         <Logo />
       </NavLink>
       <h1>{projectName}</h1>
