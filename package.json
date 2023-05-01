@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/dornkholland/as_a_user_i/issues"
   },
-  "homepage": "https://github.com/dornkholland/as_a_user_i#readme"
+  "homepage": "https://github.com/dornkholland/as_a_user_i#readme",
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
+  }
 }

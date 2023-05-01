@@ -64,12 +64,12 @@ module.exports = (sequelize, DataTypes) => {
     return project;
   };
   Project.deleteProject = async function (projectId) {
-    const project = await Project.destroy({
+    const project = await Project.findOne({
       where: {
         id: projectId,
-      },
-      cascade: true,
-    });
+      }
+    })
+    project.destroy()
     return project;
   };
 

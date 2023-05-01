@@ -15,13 +15,17 @@ function ProjectPage({ isLoaded }) {
   const { projectId } = useParams();
   const dispatch = useDispatch();
 
-  useEffect(async () => {
+  async function getProjects() {
     const response = await dispatch(
       projectActions.getProjectById({ projectId })
     );
 
     setProjectName(response);
     await dispatch(storyActions.getStories({ projectId }));
+  }
+
+  useEffect(() => {
+    getProjects()
   }, []);
   if (!sessionUser) return <Redirect to="/" />;
 
