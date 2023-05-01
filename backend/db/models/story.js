@@ -61,6 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Story.hasMany(models.Comment, {
       foreignKey: "storyId",
+      onDelete: "CASCADE",
+      hooks: true,
     });
     Story.belongsTo(models.Project, {
       foreignKey: "projectId",
@@ -123,12 +125,12 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Story.deleteStory = async function ({ story }) {
-    const deleted = await Story.destroy({
+    const toDelete = await Story.findOne({
       where: {
         id: story.id,
-      },
-      cascade: true,
-    });
+      }
+    })
+    await toDelete.destroy();
     Story.decrement("index", {
       by: 1,
       where: {
@@ -138,7 +140,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
 
-    return deleted;
+    return toDelete;
   };
 
   return Story;

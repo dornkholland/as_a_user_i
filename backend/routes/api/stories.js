@@ -89,7 +89,7 @@ router.put(
       by: 1,
       where: {
         index: { [Op.gte]: destId },
-        window: storyToMove.window,
+        window: windowName,
         projectId: storyToMove.projectId,
         id: { [Op.ne]: storyToMove.id },
       },
