@@ -20,5 +20,9 @@
 
 .comment button {
   background-color: transparent;
-  color: white;
+  color: var(--gray);
+}
+
+.comment button:hover {
+  color: red
 }

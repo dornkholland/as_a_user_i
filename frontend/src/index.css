@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
+:root {
+  --white: #f9f7f7;
+  --gray: rgb(73, 80, 87);
+  --lightgray: #e0e0e0;
+  --blue: #3f72af;
+  --xlightblue: #dbe2ef;
+  --lightblue: #3aa4cf;
+  --orange: #f39e40;
+  --lightorange: #ebbc7a;
+}
+
 /* TODO Add site wide styles */
 body,
 h1,
@@ -30,15 +41,17 @@ a {
 
 * {
   font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
 }
 
 button {
   box-sizing: border-box;
-  height: 34px;
+  height: fit-content;
+  width: fit-content;
   color: white;
-  background-color: #3f72af;
+  background-color: var(--lightblue);
   border-radius: 3px;
-  padding: 0px 10px;
+  padding: 5px 10px;
   border: none;
   font-size: 18px;
   cursor: pointer;
@@ -49,7 +62,7 @@ button {
 }
 
 button:hover {
-  background-color: #112d4e;
+  background-color: var(--blue);
 }
 a {
   -webkit-transition: all 0.3s ease-in-out;

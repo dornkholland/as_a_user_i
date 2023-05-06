@@ -47,6 +47,7 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+  align-items: center;
 }
 
 .loginForm ul {
@@ -69,8 +70,8 @@
 }
 
 .loginForm button {
-  padding: 15px;
-  margin: 10px;
+  padding: 5px 15px;
+  margin-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,6 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 20px;
 }
 
 .loginForm a {

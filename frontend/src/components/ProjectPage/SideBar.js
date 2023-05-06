@@ -7,7 +7,6 @@ function SideBar({ setActiveWindows, activeWindows }) {
     "Rejected",
     "Done",
     "Issues",
-    "IceBox",
   ];
   return (
     <div className="sidebar">

@@ -4,6 +4,7 @@ import * as windowActions from "../../store/window";
 import { Draggable } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import StoryContainer from "./StoryContainer";
+import { X, PlusSquare } from 'react-feather';
 import "./Window.css";
 function Window({ name, index }) {
   const dispatch = useDispatch();
@@ -28,24 +29,17 @@ function Window({ name, index }) {
           {...provided.dragHandleProps}
         >
           <div className="windowHeader">
-            <h2>{name}</h2>
-            <div className="windowHeader__buttons">
-              {["IceBox", "Backlog", "Issues"].includes(name) ? (
-                <button onClick={handleCreateStory}>+</button>
-              ) : null}
-              <button onClick={handleMinimize}>
-                <i className="fas fa-window-minimize"></i>
+            <h2 className="windowHeader__title">{name}</h2>
+            {["IceBox", "Backlog", "Issues"].includes(name) ? (
+              <button onClick={handleCreateStory} className="windowHeader__create">
+                <PlusSquare size={30}/>
               </button>
-            </div>
+            ) : null}
+            <button onClick={handleMinimize} className="windowHeader__minimize">
+              <X size={20}/>
+            </button>
           </div>
-          {createToggle ? (
-            <StoryMaximized
-              windowName={name}
-              creator={true}
-              setCreateToggle={setCreateToggle}
-            />
-          ) : null}
-          <StoryContainer name={name} />
+          <StoryContainer name={name} createToggle={createToggle} setCreateToggle={setCreateToggle}/>
         </li>
       )}
     </Draggable>

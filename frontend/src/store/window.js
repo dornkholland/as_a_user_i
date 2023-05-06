@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const SET_WINDOW = "session/setWindow";
 const MOVE_WINDOW = "session/moveWindow";
+const WINDOW_DEFAULT = ["Backlog", "In Progress", "Awaiting Review", "Rejected", "Done", "Issues"]
 
 const setWindow = (windowItem) => {
   return {
@@ -32,7 +33,7 @@ export const windowReorder = (coords) => (dispatch) => {
   return response;
 };
 
-const windowReducer = (state = { windows: [] }, action) => {
+const windowReducer = (state = { windows: WINDOW_DEFAULT }, action) => {
   let newState = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case SET_WINDOW:
@@ -41,7 +42,7 @@ const windowReducer = (state = { windows: [] }, action) => {
           (windowItem) => windowItem !== action.payload
         );
       } else {
-        newState.windows.unshift(action.payload);
+        newState.windows.push(action.payload);
       }
       return newState;
     case MOVE_WINDOW:

@@ -1,3 +1,5 @@
+import { Maximize2 } from "react-feather";
+
 const StoryMinimized = ({ setIsMax, story }) => {
   const handleMaximize = () => {
     setIsMax(true);
@@ -10,14 +12,14 @@ const StoryMinimized = ({ setIsMax, story }) => {
       <div className="miniStory__header">
         <p>{story.name}</p>
         <button onClick={handleMaximize}>
-          <i className="fas fa-window-maximize fa-lg"></i>
+          <Maximize2 size={15}/>
         </button>
       </div>
       <div className="miniStory__details">
         <p>{story.storyType}</p>
-        <p>size: {story.size}</p>
+        <p>Size: {story.size}</p>
         <p>
-          status:{" "}
+          Status:{" "}
           {unstartedWindows.includes(story.window) ? "Unstarted" : story.window}
         </p>
       </div>

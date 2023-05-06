@@ -1,6 +1,7 @@
 import * as projectActions from "../../store/project";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Plus } from "react-feather";
 function ProjectAddCollaboratorForm({ id }) {
   const dispatch = useDispatch();
   const [collabId, setCollabId] = useState("");
@@ -24,7 +25,7 @@ function ProjectAddCollaboratorForm({ id }) {
         onChange={(e) => setCollabId(e.target.value)}
       />
       <button type="submit">
-        <i className="fas fa-plus"></i>
+        <Plus size={25} />
       </button>
     </form>
   );

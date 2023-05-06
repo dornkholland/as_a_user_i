@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as storyActions from "../../store/story";
 import { useParams } from "react-router";
 import CommentContainer from "./CommentContainer";
+import { Minimize } from "react-feather"; 
 
 const StoryMaximized = ({
   setCreateToggle,
@@ -111,17 +112,6 @@ const StoryMaximized = ({
         },
       })
     );
-    //      storyActions.updateStory({
-    //        storyId: story.id,
-    //        storyName,
-    //        storyType,
-    //        storySize,
-    //        storyStatus: newStatus,
-    //        storyDescription,
-    //        projectId,
-    //        windowName: newWindow,
-    //        previousWindow: windowName,
-    //      })
     setIsMax(false);
   };
 
@@ -159,34 +149,37 @@ const StoryMaximized = ({
 
   return (
     <div className="maxStory">
-      <div className="maxStory__header">
-        {storyType === "Feature" ? (
-          <h1 className="header--feature">as a user, i can...</h1>
-        ) : storyType === "Bug" ? (
-          <h1 className="header--bug">as a user, i should be able to... </h1>
-        ) : null}
+      <div className="maxStory__headerButtons">
         {!creator ? (
           <>
             {storyStatus !== "Done" ? (
-              <button onClick={handleStateChange}>
+              <button className="maxStory__button maxStory__status" onClick={handleStateChange}>
                 {stateButton(storyStatus)}
               </button>
             ) : null}
             {storyStatus === "Awaiting Review" ? (
-              <button onClick={handleRejection}>Reject</button>
+              <button className="maxStory__button maxStory__status" onClick={handleRejection}>Reject</button>
             ) : null}
-            <button onClick={handleCollapse}>
-              <i className="fas fa-window-minimize"></i>
+            <button onClick={handleCollapse} className="maxStory__minimize" >
+              <Minimize size={20}/>
             </button>
           </>
         ) : (
           <button onClick={cancelCreationHandler}>cancel</button>
         )}
       </div>
+      <div className="maxStory__header">
+        {storyType === "Feature" ? (
+          <h1 className="header--feature">as a user, i can...</h1>
+        ) : storyType === "Bug" ? (
+          <h1 className="header--bug">as a user, i should be able to... </h1>
+        ) : null}
+      </div>
       <form className="storyEditForm" onSubmit={handleSubmit}>
         <textarea
           value={storyName}
           onChange={(e) => setStoryName(e.target.value)}
+          placeholder="Should be able to do this..."
         />
         <div className="maxStory__info">
           <div className="maxStory__dropdowns">
@@ -225,18 +218,19 @@ const StoryMaximized = ({
         <textarea
           value={storyDescription}
           onChange={(e) => setStoryDescription(e.target.value)}
+          placeholder="Some more details about this story are..."
         />
-        <button type="submit">
+        <button type="submit" className="maxStory__button">
           {creator ? <span>Create Story!</span> : <span>Save Changes</span>}
         </button>
       </form>
       {!creator ? (
-        <>
+        <div className="comments">
           <CommentContainer story={story} />
-          <button className="deleteStoryButton" onClick={deleteStoryHandler}>
+          <button className="deleteStoryButton maxStory__button" onClick={deleteStoryHandler}>
             Delete story
           </button>
-        </>
+        </div>
       ) : null}
     </div>
   );

@@ -16,8 +16,9 @@ function CommentForm({ projectId, storyId }) {
         onChange={(e) => setDescription(e.target.value)}
         cols="30"
         rows="2"
+        placeholder="Some helpful feedback I noticed is..."
       ></textarea>
-      <button type="submit">Submit Comment</button>
+      <button type="submit" className="maxStory__button">Submit Comment</button>
     </form>
   );
 }
