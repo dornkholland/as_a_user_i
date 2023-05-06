@@ -1,7 +1,7 @@
 /* minimized story stylings */
 .miniStory {
   padding: 3px 5px;
-  margin: 10px 6px;
+  margin: 10px auto;
   background-color: var(--white);
   box-shadow: 1px 1px 3px gray;
   border-radius: 5px;
