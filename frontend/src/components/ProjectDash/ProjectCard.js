@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import ProjectEditForm from "./ProjectEditForm";
 import ProjectAddCollabForm from "./ProjectAddCollabForm";
 import * as projectActions from "../../store/project";
+import {Edit, Trash2} from 'react-feather';
 function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
@@ -22,10 +23,10 @@ function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
           {isOwned ? (
             <>
               <button onClick={handleEdit}>
-                <i className="fas fa-edit fa-lg"></i>
+                <Edit size={22} />
               </button>
               <button onClick={handleDelete}>
-                <i className="far fa-trash-alt fa-lg"></i>
+                <Trash2 size={22} />
               </button>
             </>
           ) : null}

@@ -55,7 +55,7 @@ function ProjectPage({ isLoaded }) {
     }
   };
   return (
-    <>
+    <div className="projectRoot">
       <Navigation isLoaded={isLoaded} projectName={projectName} />
       <div className="projectPage">
         <DragDropContext onDragEnd={onDragEnd}>
@@ -63,7 +63,7 @@ function ProjectPage({ isLoaded }) {
           <Workspace />
         </DragDropContext>
       </div>
-    </>
+    </div>
   );
 }
 

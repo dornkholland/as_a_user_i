@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
+import { User } from "react-feather";
 import * as sessionActions from "../../store/session";
 
 function ProfileButton({ user }) {
@@ -34,16 +35,18 @@ function ProfileButton({ user }) {
   return (
     <div className="profileContainer">
       <button className="profileContainer__avatar" onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+        <User size={35}/>
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
           <li>Hi, {user.name}!</li>
           <li>{user.email}</li>
           <li>Collaborator id: {user.id}</li>
-          <Link to="/projects">My Projects</Link>
+          <li >
+            <Link to="/projects" className="profileContainer__project" >My Projects</Link>
+          </li>
           <li>
-            <button onClick={logout}>Log Out</button>
+            <button onClick={logout} className="logout">Log Out</button>
           </li>
         </ul>
       )}

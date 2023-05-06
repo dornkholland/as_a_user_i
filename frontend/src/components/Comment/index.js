@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import * as commentActions from "../../store/comment";
 import { useDispatch, useSelector } from "react-redux";
 import "./Comment.css";
+import { Trash, Trash2 } from "react-feather";
 function Comment({ comment }) {
   const sessionUser = useSelector((state) => state.session.user);
   const isMine = comment.userId === sessionUser.id;
@@ -23,7 +24,7 @@ function Comment({ comment }) {
         <p>posted by: {comment.User.name}</p>
         {isMine ? (
           <button onClick={handleDelete}>
-            <i className="far fa-trash-alt "></i>
+            <Trash2 size={25} />
           </button>
         ) : null}
       </div>

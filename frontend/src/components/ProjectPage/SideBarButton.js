@@ -6,11 +6,10 @@ const SideBarButton = ({ name }) => {
   const handleClick = () => {
     dispatch(windowActions.windowToggle(name));
   };
+  const className = `sidebar__button ${activeWindows.includes(name) ? 'sidebar__button__toggled' : null}`
   return (
     <button
-      style={
-        activeWindows.includes(name) ? { backgroundColor: "#112d4e" } : null
-      }
+      className={className}
       onClick={handleClick}
     >
       {name}

@@ -1,28 +1,49 @@
 .window {
-  background-color: #f9f7f7;
-  min-height: 700px;
-  min-width: 400px;
-  max-width: 400px;
+  background-color: var(--white);
+  min-height: 90vh;
+  height: fit-content;
   display: grid;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 80px 1fr;
+  box-shadow: 2px 2px 3px gray;
+  border: 2px solid var(--xlightblue);
+  min-width: 15%;
 }
 
 .windowHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   color: rgb(73, 80, 87);
+  background-color: var(--white);
+  height: 100%;
+  width: 100%;
 }
 
-.windowHeader__buttons {
-  padding-right: 20px;
+.windowHeader__title {
+  margin-right: 0px;
 }
 
-.windowHeader__buttons > * {
-  margin: 0 3px;
-  width: 40px;
-  background-color: #3f72af;
+.windowHeader__create {
+  background-color: transparent;
+  color: black;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 0px;
+  padding-top: 2px;
 }
+
+.windowHeader__minimize {
+  margin-bottom: auto;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: auto;
+  background-color: transparent;
+  width: 25px;
+  height: 25px;
+  color: black;
+  text-align: center;
+}
+
 
 .storyContainer {
   background-color: #dbe2ef;
