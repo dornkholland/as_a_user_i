@@ -48,7 +48,7 @@ If you'd like to spin up this application locally, you can do so with the follow
 
 ## Spin up PostGresSql container
 
-Spin up a local postgres container listening on port 5672.  This is done easiest by pulling the latest postgres docker image. j
+Spin up a local postgres container listening on port 5672.  This is done easiest by pulling the latest postgres docker image.
 
 ## Start up backend
 
@@ -65,7 +65,15 @@ Once your database is set up, run the following to start the backend nodejs serv
 
 ## Start up UI
 
-To start the UI, make sure the backend API is currently running.  Then run the following: 
+To start the UI, make sure the backend API is currently running.  Then run the following from the `as_a_user_i/frontend` directory: 
 
     npm install
+    npm run start
+
+## Spin up backend with frontend build (for deployments)
+
+You can also build the frontend into a production build and then deploy the app from running the frontend.
+
+    npm run install
+    npm run build
     npm run start
