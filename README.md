@@ -1,5 +1,5 @@
 # as a user, i...
-To see the production website, check out our live deployed link: **link has been removed, awaiting deployment ticket*
+To see the production website, check out our live deployed link: [as-a-user-i.dornk.top](https://as-a-user-i.dornk.top)
 
 # General Description
 
