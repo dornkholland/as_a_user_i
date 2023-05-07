@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const { environment } = require("./config");
 const routes = require("./routes");
+const path = require('node:path')
 
 const isProduction = environment === "production";
 
@@ -18,6 +19,9 @@ app.use(express.json());
 if (!isProduction) {
   app.use(cors());
 }
+
+app.use(express.static(
+    path.join(__dirname,"../frontend/build")));
 
 app.use(
   helmet({
