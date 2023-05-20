@@ -1,6 +1,6 @@
 .window {
   background-color: var(--white);
-  min-height: 90vh;
+  min-height: 80dvh;
   height: fit-content;
   display: grid;
   grid-template-rows: 80px 1fr;

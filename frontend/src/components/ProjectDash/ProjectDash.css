@@ -5,6 +5,7 @@ body {
 .dashContainer {
   padding: 30px;
   min-height: 100vh;
+  max-width: 100dvw;
 }
 
 .dashContainer button {
@@ -160,4 +161,10 @@ body {
 .projectEditForm button {
   background-color: transparent;
   color: #666666;
+}
+
+@media screen and (max-width: 800px) {
+  .projectCard {
+    max-width: 80dvw;
+  }
 }

@@ -1,15 +1,18 @@
 .projectRoot {
-  min-width: 99vw;
-  width: fit-content;
+  max-width: 100dvw;
+  /* width: fit-content; */
 }
 
 .projectPage {
   display: flex;
-  min-height: calc(100vh - 81px);
+  min-height: 80dvh;
   background-color: var(--white);
   align-items: stretch;
   width: 100%;
   gap: 20px;
+  max-width: 100dvw;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .sidebar {
@@ -48,20 +51,21 @@
   background-color: var(--xlightblue);
   color: var(--blue);
 }
-
 /* width */
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 17px;
+  width: 1dvw;
+  height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 10px;
-}
+  background: var(--lightgray);
+  border-radius: 5px;
+} 

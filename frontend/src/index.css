@@ -11,6 +11,14 @@
   --lightorange: #ebbc7a;
 }
 
+#root {
+  width: 99dvw;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  max-height: 100dvh;
+  display: inline-block;
+}
+
 /* TODO Add site wide styles */
 body,
 h1,

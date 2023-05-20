@@ -12,6 +12,6 @@
 
 .workspace {
   background-color: var(--white);
-  width: 100%;
+  width: fit-content;
   box-sizing: border-box;
 }
