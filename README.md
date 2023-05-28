@@ -1,5 +1,6 @@
 # as a user, i...
 To see the production website, check out our live deployed link: [as-a-user-i.dornk.top](https://as-a-user-i.dornk.top)
+This application is deployed on a digital ocean droplet using dokku.
 
 # General Description
 
