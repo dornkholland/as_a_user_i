@@ -128,7 +128,7 @@ body {
 }
 
 .addCollabForm button:hover {
-  color: var(--blue)
+  color: var(--blue);
 }
 
 .addCollabForm input {

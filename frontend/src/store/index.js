@@ -1,10 +1,10 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import sessionReducer from "./session";
-import windowReducer from "./window";
-import projectReducer from "./project";
-import storyReducer from "./story";
-import commentReducer from "./comment";
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import sessionReducer from './session';
+import windowReducer from './window';
+import projectReducer from './project';
+import storyReducer from './story';
+import commentReducer from './comment';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -17,10 +17,10 @@ const rootReducer = combineReducers({
 let enhancer;
 
 // uses the thunk middleware and uses logger or development environment
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   enhancer = applyMiddleware(thunk);
 } else {
-  const logger = require("redux-logger").default;
+  const logger = require('redux-logger').default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));

@@ -1,19 +1,19 @@
-import * as projectActions from "../../store/project";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Plus } from "react-feather";
+import * as projectActions from '../../store/project';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Plus } from 'react-feather';
 function ProjectAddCollaboratorForm({ id }) {
   const dispatch = useDispatch();
-  const [collabId, setCollabId] = useState("");
+  const [collabId, setCollabId] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
       projectActions.addCollaborator({
         projectId: id,
         collaboratorId: collabId,
-      })
+      }),
     );
-    setCollabId("");
+    setCollabId('');
   };
   return (
     <form onSubmit={handleSubmit} className="addCollabForm">

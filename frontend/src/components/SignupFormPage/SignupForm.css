@@ -38,7 +38,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 2px #fff, 0 0 5px #888;
+  box-shadow:
+    0 0 2px #fff,
+    0 0 5px #888;
   padding: 0 50px 30px 50px;
 }
 
@@ -53,7 +55,7 @@
   margin: 0;
   padding: 0;
 }
-
+/* 
 .signupForm label {
   padding: 0;
   margin: 10px;
@@ -66,7 +68,7 @@
 
 .signupForm input {
   height: 30px;
-}
+} */
 
 .signupForm button {
   margin: 30px;

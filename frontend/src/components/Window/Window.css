@@ -33,8 +33,7 @@
 }
 
 .windowHeader__create:hover,
-.windowHeader__minimize:hover
-{
+.windowHeader__minimize:hover {
   color: var(--gray);
   background-color: transparent;
 }

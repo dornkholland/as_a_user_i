@@ -1,12 +1,12 @@
-import { csrfFetch } from "./csrf";
+import { csrfFetch } from './csrf';
 
-const LOAD = "story/load";
+const LOAD = 'story/load';
 
-const SET_STORY = "story/set";
+const SET_STORY = 'story/set';
 
-const REMOVE_STORY = "story/remove";
+const REMOVE_STORY = 'story/remove';
 
-const MOVE_STORY = "story/move";
+const MOVE_STORY = 'story/move';
 
 const loadStories = (stories) => {
   return {
@@ -36,110 +36,123 @@ const moveStory = (coords) => {
   };
 };
 
-export const storyReorder = ({ coords, projectId }) => async (dispatch) => {
-  const coordsObj = {
-    story: JSON.parse(coords.draggableId),
-    sourceId: coords.source.index,
-    destId: coords.destination.index,
-    windowName: coords.destination.droppableId,
-    projectId,
+export const storyReorder =
+  ({ coords, projectId }) =>
+  async (dispatch) => {
+    const coordsObj = {
+      story: JSON.parse(coords.draggableId),
+      sourceId: coords.source.index,
+      destId: coords.destination.index,
+      windowName: coords.destination.droppableId,
+      projectId,
+    };
+    const response = dispatch(moveStory(coordsObj));
+    const request = await csrfFetch(
+      `/api/projects/${projectId}/stories/move/`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          coordsObj,
+        }),
+      },
+    );
+    const data = await request.json();
+
+    return response;
   };
-  const response = dispatch(moveStory(coordsObj));
-  const request = await csrfFetch(`/api/projects/${projectId}/stories/move/`, {
-    method: "PUT",
-    body: JSON.stringify({
-      coordsObj,
-    }),
-  });
-  const data = await request.json();
 
-  return response;
-};
+export const getStoriesByWindow =
+  ({ windowName, projectId }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(
+      `/api/projects/${projectId}/stories/${windowName}`,
+    );
+    const data = await response.json();
+    return dispatch(loadStories(data));
+  };
 
-export const getStoriesByWindow = ({ windowName, projectId }) => async (
-  dispatch
-) => {
-  const response = await csrfFetch(
-    `/api/projects/${projectId}/stories/${windowName}`
-  );
-  const data = await response.json();
-  return dispatch(loadStories(data));
-};
+export const getStories =
+  ({ projectId }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(`/api/projects/${projectId}/stories/`);
+    const data = await response.json();
+    return dispatch(loadStories(data));
+  };
 
-export const getStories = ({ projectId }) => async (dispatch) => {
-  const response = await csrfFetch(`/api/projects/${projectId}/stories/`);
-  const data = await response.json();
-  return dispatch(loadStories(data));
-};
-
-export const createStory = ({
-  projectId,
-  storyName,
-  storyType,
-  storySize,
-  storyStatus,
-  storyDescription,
-  windowName,
-  index,
-}) => async (dispatch) => {
-  const response = await csrfFetch(`/api/projects/${projectId}/stories/`, {
-    method: "POST",
-    body: JSON.stringify({
-      storyName,
-      storyType,
-      storySize,
-      storyStatus,
-      storyDescription,
-      windowName,
-      index,
-    }),
-  });
-  const data = await response.json();
-  return dispatch(setStory(data.story));
-};
-
-export const updateStory = ({
-  projectId,
-  storyId,
-  storyName,
-  storyType,
-  storySize,
-  storyStatus,
-  storyDescription,
-  windowName,
-  previousWindow,
-}) => async (dispatch) => {
-  const toDelete = { id: storyId, window: previousWindow, projectId };
-  dispatch(removeStory(toDelete));
-
-  const response = await csrfFetch(
-    `/api/projects/${projectId}/stories/${windowName}/${storyId}`,
-    {
-      method: "PATCH",
+export const createStory =
+  ({
+    projectId,
+    storyName,
+    storyType,
+    storySize,
+    storyStatus,
+    storyDescription,
+    windowName,
+    index,
+  }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(`/api/projects/${projectId}/stories/`, {
+      method: 'POST',
       body: JSON.stringify({
         storyName,
         storyType,
         storySize,
         storyStatus,
         storyDescription,
+        windowName,
+        index,
       }),
-    }
-  );
-  const data = await response.json();
-  data.story.previousWindow = previousWindow;
-  return dispatch(setStory(data.story));
-};
+    });
+    const data = await response.json();
+    return dispatch(setStory(data.story));
+  };
 
-export const deleteStory = ({ projectId, storyId }) => async (dispatch) => {
-  const response = await csrfFetch(
-    `/api/projects/${projectId}/stories/${storyId}`,
-    {
-      method: "DELETE",
-    }
-  );
-  const data = await response.json();
-  return dispatch(removeStory(data.story));
-};
+export const updateStory =
+  ({
+    projectId,
+    storyId,
+    storyName,
+    storyType,
+    storySize,
+    storyStatus,
+    storyDescription,
+    windowName,
+    previousWindow,
+  }) =>
+  async (dispatch) => {
+    const toDelete = { id: storyId, window: previousWindow, projectId };
+    dispatch(removeStory(toDelete));
+
+    const response = await csrfFetch(
+      `/api/projects/${projectId}/stories/${windowName}/${storyId}`,
+      {
+        method: 'PATCH',
+        body: JSON.stringify({
+          storyName,
+          storyType,
+          storySize,
+          storyStatus,
+          storyDescription,
+        }),
+      },
+    );
+    const data = await response.json();
+    data.story.previousWindow = previousWindow;
+    return dispatch(setStory(data.story));
+  };
+
+export const deleteStory =
+  ({ projectId, storyId }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(
+      `/api/projects/${projectId}/stories/${storyId}`,
+      {
+        method: 'DELETE',
+      },
+    );
+    const data = await response.json();
+    return dispatch(removeStory(data.story));
+  };
 
 const initialState = { stories: {} };
 const storyReducer = (state = initialState, action) => {
@@ -172,7 +185,7 @@ const storyReducer = (state = initialState, action) => {
           (story) =>
             story.window === deletedStory.window &&
             story.index > deletedStory.index &&
-            story.projectId === deletedStory.projectId
+            story.projectId === deletedStory.projectId,
         )
         .forEach((story) => newState.stories[story.id].index--);
 

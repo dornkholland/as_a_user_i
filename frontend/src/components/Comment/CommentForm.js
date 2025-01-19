@@ -1,13 +1,13 @@
-import * as commentActions from "../../store/comment";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import * as commentActions from '../../store/comment';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 function CommentForm({ projectId, storyId }) {
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(commentActions.addComment({ storyId, projectId, description }));
-    setDescription("");
+    setDescription('');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -18,7 +18,9 @@ function CommentForm({ projectId, storyId }) {
         rows="2"
         placeholder="Some helpful feedback I noticed is..."
       ></textarea>
-      <button type="submit" className="maxStory__button">Submit Comment</button>
+      <button type="submit" className="maxStory__button">
+        Submit Comment
+      </button>
     </form>
   );
 }

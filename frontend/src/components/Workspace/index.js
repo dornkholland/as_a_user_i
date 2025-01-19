@@ -1,7 +1,7 @@
-import { Droppable } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
-import "./Workspace.css";
-import Window from "../Window";
+import { Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
+import './Workspace.css';
+import Window from '../Window';
 
 function Workspace() {
   const windows = useSelector((state) => state.window.windows);

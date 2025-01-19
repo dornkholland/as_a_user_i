@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 function Hero() {
   return (
     <div className="hero">
       <div
         className="hero__image"
-        style={{ backgroundImage: "url(/images/hero.jpg)" }}
+        style={{ backgroundImage: 'url(/images/hero.jpg)' }}
       ></div>
       <div className="hero__content">
         <div content__text>

@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as storyActions from "../../store/story";
-import { useParams } from "react-router";
-import CommentContainer from "./CommentContainer";
-import { Minimize } from "react-feather"; 
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import * as storyActions from '../../store/story';
+import { useParams } from 'react-router';
+import CommentContainer from './CommentContainer';
+import { Minimize } from 'react-feather';
 
 const StoryMaximized = ({
   setCreateToggle,
@@ -16,36 +16,36 @@ const StoryMaximized = ({
   const stories = useSelector((state) => state.story.stories);
   const { projectId } = useParams();
 
-  const storyNameHandler = () => (story && story.name ? story.name : "");
+  const storyNameHandler = () => (story && story.name ? story.name : '');
   const [storyName, setStoryName] = useState(storyNameHandler);
   const storyTypeHandler = () =>
-    story && story.storyType ? story.storyType : "Feature";
+    story && story.storyType ? story.storyType : 'Feature';
   const [storyType, setStoryType] = useState(storyTypeHandler);
   const storySizeHandler = () => (story && story.size ? story.size : 1);
   const [storySize, setStorySize] = useState(storySizeHandler);
   const storyStatusHandler = () =>
-    story && story.status ? story.status : "Unstarted";
+    story && story.status ? story.status : 'Unstarted';
 
-  const unstartedWindows = ["Backlog", "Issues", "Icebox"];
+  const unstartedWindows = ['Backlog', 'Issues', 'Icebox'];
 
   const [storyStatus, setStoryStatus] = useState(
     !creator
       ? unstartedWindows.includes(story.window)
-        ? "Unstarted"
+        ? 'Unstarted'
         : story.window
-      : "Unstarted"
+      : 'Unstarted',
   );
   const storyDescriptionHandler = () =>
-    story && story.description ? story.description : "";
+    story && story.description ? story.description : '';
   const [storyDescription, setStoryDescription] = useState(
-    storyDescriptionHandler
+    storyDescriptionHandler,
   );
 
   const [storyWindow, setStoryWindow] = useState(windowName);
 
   const deleteStoryHandler = () => {
     dispatch(
-      storyActions.deleteStory({ windowName, storyId: story.id, projectId })
+      storyActions.deleteStory({ windowName, storyId: story.id, projectId }),
     );
   };
 
@@ -72,9 +72,9 @@ const StoryMaximized = ({
           projectId,
           windowName,
           index: Object.values(stories).filter(
-            (story) => story.window === windowName
+            (story) => story.window === windowName,
           ).length,
-        })
+        }),
       );
       setCreateToggle(false);
     } else {
@@ -88,7 +88,7 @@ const StoryMaximized = ({
           storyDescription,
           projectId,
           windowName: storyWindow,
-        })
+        }),
       );
       setIsMax(false);
     }
@@ -104,46 +104,46 @@ const StoryMaximized = ({
           },
           destination: {
             index: Object.values(stories).filter(
-              (story) => story.window === newWindow
+              (story) => story.window === newWindow,
             ).length,
             droppableId: newWindow,
           },
           projectId,
         },
-      })
+      }),
     );
     setIsMax(false);
   };
 
   const handleStateChange = () => {
     switch (storyStatus) {
-      case "Unstarted":
-        return stateUpdate("In Progress");
-      case "In Progress":
-        return stateUpdate("Awaiting Review");
-      case "Awaiting Review":
-        return stateUpdate("Done");
-      case "Rejected":
-        return stateUpdate("Backlog");
+      case 'Unstarted':
+        return stateUpdate('In Progress');
+      case 'In Progress':
+        return stateUpdate('Awaiting Review');
+      case 'Awaiting Review':
+        return stateUpdate('Done');
+      case 'Rejected':
+        return stateUpdate('Backlog');
       default:
         return;
     }
   };
 
   const handleRejection = () => {
-    return stateUpdate("Rejected");
+    return stateUpdate('Rejected');
   };
 
   function stateButton(storyStatus) {
     switch (storyStatus) {
-      case "Unstarted":
-        return "Start!";
-      case "In Progress":
-        return "Deliver!";
-      case "Awaiting Review":
-        return "Accept";
-      case "Rejected":
-        return "Restart";
+      case 'Unstarted':
+        return 'Start!';
+      case 'In Progress':
+        return 'Deliver!';
+      case 'Awaiting Review':
+        return 'Accept';
+      case 'Rejected':
+        return 'Restart';
     }
   }
 
@@ -152,16 +152,24 @@ const StoryMaximized = ({
       <div className="maxStory__headerButtons">
         {!creator ? (
           <>
-            {storyStatus !== "Done" ? (
-              <button className="maxStory__button maxStory__status" onClick={handleStateChange}>
+            {storyStatus !== 'Done' ? (
+              <button
+                className="maxStory__button maxStory__status"
+                onClick={handleStateChange}
+              >
                 {stateButton(storyStatus)}
               </button>
             ) : null}
-            {storyStatus === "Awaiting Review" ? (
-              <button className="maxStory__button maxStory__status" onClick={handleRejection}>Reject</button>
+            {storyStatus === 'Awaiting Review' ? (
+              <button
+                className="maxStory__button maxStory__status"
+                onClick={handleRejection}
+              >
+                Reject
+              </button>
             ) : null}
-            <button onClick={handleCollapse} className="maxStory__minimize" >
-              <Minimize size={20}/>
+            <button onClick={handleCollapse} className="maxStory__minimize">
+              <Minimize size={20} />
             </button>
           </>
         ) : (
@@ -169,9 +177,9 @@ const StoryMaximized = ({
         )}
       </div>
       <div className="maxStory__header">
-        {storyType === "Feature" ? (
+        {storyType === 'Feature' ? (
           <h1 className="header--feature">as a user, i can...</h1>
-        ) : storyType === "Bug" ? (
+        ) : storyType === 'Bug' ? (
           <h1 className="header--bug">as a user, i should be able to... </h1>
         ) : null}
       </div>
@@ -227,7 +235,10 @@ const StoryMaximized = ({
       {!creator ? (
         <div className="comments">
           <CommentContainer story={story} />
-          <button className="deleteStoryButton maxStory__button" onClick={deleteStoryHandler}>
+          <button
+            className="deleteStoryButton maxStory__button"
+            onClick={deleteStoryHandler}
+          >
             Delete story
           </button>
         </div>

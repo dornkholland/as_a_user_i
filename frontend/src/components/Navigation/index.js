@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import ProfileButton from "./ProfileButton";
-import DemoUser from "../DemoUser";
-import Logo from "./Logo";
-import "./Navigation.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import ProfileButton from './ProfileButton';
+import DemoUser from '../DemoUser';
+import Logo from './Logo';
+import './Navigation.css';
 
 function Navigation({ projectName, isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {
+      "@mui/*": ["node_modules/@mui/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

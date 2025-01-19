@@ -103,27 +103,25 @@
   padding: 5px;
 }
 .profileContainer__avatar:hover,
-.profileContainer__project:hover
-{
+.profileContainer__project:hover {
   color: darkorange;
   background-color: transparent;
 }
 
 @media screen and (max-width: 800px) {
-  .navbar > a:not(.navbar__logo){
-  font-size: .7em;
-  padding: .4em;
+  .navbar > a:not(.navbar__logo) {
+    font-size: 0.7em;
+    padding: 0.4em;
   }
   .navbar > button {
-    font-size: .7em;
+    font-size: 0.7em;
   }
 
   .navbar__logo img {
-  height: 60px;
+    height: 60px;
   }
 
-  .navbar > h1{
+  .navbar > h1 {
     font-size: 15px;
   }
-    
 }

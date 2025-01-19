@@ -1,6 +1,6 @@
-import * as projectActions from "../../store/project";
-import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import * as projectActions from '../../store/project';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 function ProjectEditForm({ projectId, name, editing, setEditing }) {
   const [projectName, setProjectName] = useState(name);
   const dispatch = useDispatch();

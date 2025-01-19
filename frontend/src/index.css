@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 :root {
   --white: #f9f7f7;
@@ -48,7 +48,7 @@ a {
 }
 
 * {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
 }
 
@@ -84,7 +84,13 @@ li {
 }
 
 textarea {
-  font-family: Open Sans, open-sans, EmojiFontFace, helvetica, arial, sans-serif;
+  font-family:
+    Open Sans,
+    open-sans,
+    EmojiFontFace,
+    helvetica,
+    arial,
+    sans-serif;
   font-size: 16px;
   border: 1px solid #ccc;
   resize: none;
@@ -120,6 +126,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }

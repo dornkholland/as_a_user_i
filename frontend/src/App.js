@@ -1,14 +1,14 @@
-import { Switch, Route } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import LoginFormPage from "./components/LoginFormPage";
-import Footer from "./components/Footer";
-import SignupFormPage from "./components/SignupFormPage";
-import Navigation from "./components/Navigation";
-import Landing from "./components/Landing";
-import ProjectDash from "./components/ProjectDash";
-import ProjectPage from "./components/ProjectPage";
-import * as sessionActions from "./store/session";
+import { Switch, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import LoginFormPage from './components/LoginFormPage';
+import Footer from './components/Footer';
+import SignupFormPage from './components/SignupFormPage';
+import Navigation from './components/Navigation';
+import Landing from './components/Landing';
+import ProjectDash from './components/ProjectDash';
+import ProjectPage from './components/ProjectPage';
+import * as sessionActions from './store/session';
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

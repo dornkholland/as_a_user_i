@@ -1,8 +1,8 @@
-import { csrfFetch } from "./csrf";
+import { csrfFetch } from './csrf';
 
-const SET_PROJECT = "project/setProject";
-const ADD_PROJECT = "project/addProject";
-const REMOVE_PROJECT = "project/removeProject";
+const SET_PROJECT = 'project/setProject';
+const ADD_PROJECT = 'project/addProject';
+const REMOVE_PROJECT = 'project/removeProject';
 
 /*set project action creator */
 const setProject = (project) => {
@@ -25,36 +25,38 @@ const removeProject = (project) => {
   };
 };
 
-export const addCollaborator = ({ projectId, collaboratorId }) => async (
-  dispatch
-) => {
-  const response = await csrfFetch(
-    `/api/projects/${projectId}/collaborator/${collaboratorId}`,
-    { method: "POST" }
-  );
-  const data = await response.json();
-  return data;
-};
+export const addCollaborator =
+  ({ projectId, collaboratorId }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(
+      `/api/projects/${projectId}/collaborator/${collaboratorId}`,
+      { method: 'POST' },
+    );
+    const data = await response.json();
+    return data;
+  };
 
 /* get projects and set as current state thunk */
 export const getProjects = () => async (dispatch) => {
-  const response = await csrfFetch("/api/projects");
+  const response = await csrfFetch('/api/projects');
   const data = await response.json();
   dispatch(setProject(data.projects));
   return response;
 };
 
-export const getProjectById = ({ projectId }) => async (dispatch) => {
-  const response = await csrfFetch(`/api/projects/${projectId}`);
-  const data = await response.json();
-  return data.project.name;
-};
+export const getProjectById =
+  ({ projectId }) =>
+  async (dispatch) => {
+    const response = await csrfFetch(`/api/projects/${projectId}`);
+    const data = await response.json();
+    return data.project.name;
+  };
 
 /* create a project */
 export const createProject = (project) => async (dispatch) => {
   const { projectName } = project;
-  const response = await csrfFetch("/api/projects", {
-    method: "POST",
+  const response = await csrfFetch('/api/projects', {
+    method: 'POST',
     body: JSON.stringify({
       projectName,
     }),
@@ -67,7 +69,7 @@ export const createProject = (project) => async (dispatch) => {
 export const editProject = (project) => async (dispatch) => {
   const { projectId, projectName } = project;
   const response = await csrfFetch(`/api/projects/${projectId}`, {
-    method: "PATCH",
+    method: 'PATCH',
     body: JSON.stringify({
       projectName,
     }),
@@ -79,7 +81,7 @@ export const editProject = (project) => async (dispatch) => {
 export const deleteProject = (project) => async (dispatch) => {
   const { id } = project;
   const response = await csrfFetch(`/api/projects/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
   });
   const data = await response.json();
   return dispatch(removeProject(Number(data.project)));
@@ -100,7 +102,7 @@ const projectsReducer = (state = initialState, action) => {
     case REMOVE_PROJECT:
       newState = JSON.parse(JSON.stringify(state));
       newState.projects.owned = newState.projects.owned.filter(
-        (project) => project.id !== action.payload
+        (project) => project.id !== action.payload,
       );
       return newState;
     default:

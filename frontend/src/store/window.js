@@ -1,8 +1,15 @@
-import { csrfFetch } from "./csrf";
+import { csrfFetch } from './csrf';
 
-const SET_WINDOW = "session/setWindow";
-const MOVE_WINDOW = "session/moveWindow";
-const WINDOW_DEFAULT = ["Backlog", "In Progress", "Awaiting Review", "Rejected", "Done", "Issues"]
+const SET_WINDOW = 'session/setWindow';
+const MOVE_WINDOW = 'session/moveWindow';
+const WINDOW_DEFAULT = [
+  'Backlog',
+  'In Progress',
+  'Awaiting Review',
+  'Rejected',
+  'Done',
+  'Issues',
+];
 
 const setWindow = (windowItem) => {
   return {
@@ -39,7 +46,7 @@ const windowReducer = (state = { windows: WINDOW_DEFAULT }, action) => {
     case SET_WINDOW:
       if (newState.windows.includes(action.payload)) {
         newState.windows = newState.windows.filter(
-          (windowItem) => windowItem !== action.payload
+          (windowItem) => windowItem !== action.payload,
         );
       } else {
         newState.windows.push(action.payload);
@@ -47,12 +54,12 @@ const windowReducer = (state = { windows: WINDOW_DEFAULT }, action) => {
       return newState;
     case MOVE_WINDOW:
       newState.windows = newState.windows.filter(
-        (windowItem) => windowItem !== action.payload.dragName
+        (windowItem) => windowItem !== action.payload.dragName,
       );
       newState.windows.splice(
         action.payload.destId,
         0,
-        action.payload.dragName
+        action.payload.dragName,
       );
       return newState;
     default:

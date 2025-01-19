@@ -31,8 +31,8 @@
 
 @media screen and (max-width: 800px) {
   .hero__content {
-  flex-direction: column;
-  font-size: .75em;
+    flex-direction: column;
+    font-size: 0.75em;
   }
 }
 

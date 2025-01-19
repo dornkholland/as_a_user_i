@@ -1,20 +1,20 @@
-import * as projectActions from "../../store/project";
-import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import * as projectActions from '../../store/project';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 
 function ProjectForm() {
-  const [projectName, setProjectName] = useState("");
+  const [projectName, setProjectName] = useState('');
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await dispatch(
-      projectActions.createProject({ projectName })
+      projectActions.createProject({ projectName }),
     );
     if (response.errors) {
       setErrors(response.errors);
     }
-    setProjectName("");
+    setProjectName('');
   };
   return (
     <div className="projectCreator">

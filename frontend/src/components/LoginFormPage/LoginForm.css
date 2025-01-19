@@ -38,7 +38,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 2px #fff, 0 0 5px #888;
+  box-shadow:
+    0 0 2px #fff,
+    0 0 5px #888;
   padding: 0 50px 30px 50px;
 }
 
@@ -46,27 +48,13 @@
   padding-top: 35px;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   align-items: center;
 }
 
 .loginForm ul {
   margin: 0;
   padding: 0;
-}
-
-.loginForm label {
-  padding: 0;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  color: #444444;
-  width: 100%;
-}
-
-.loginForm input {
-  height: 30px;
 }
 
 .loginForm button {

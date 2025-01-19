@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import ProjectEditForm from "./ProjectEditForm";
-import ProjectAddCollabForm from "./ProjectAddCollabForm";
-import * as projectActions from "../../store/project";
-import {Edit, Trash2} from 'react-feather';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import ProjectEditForm from './ProjectEditForm';
+import ProjectAddCollabForm from './ProjectAddCollabForm';
+import * as projectActions from '../../store/project';
+import { Edit, Trash2 } from 'react-feather';
 function ProjectCard({ id, name, owner, lastUpdated, isOwned }) {
   const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);

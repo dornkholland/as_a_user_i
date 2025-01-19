@@ -1,16 +1,17 @@
 // frontend/src/components/LoginFormPage/index.js
-import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
-import Logo from "../Navigation/Logo";
-import "./LoginForm.css";
+import React, { useState } from 'react';
+import * as sessionActions from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, NavLink } from 'react-router-dom';
+import Logo from '../Navigation/Logo';
+import './LoginForm.css';
+import TextField from '@mui/material/TextField';
 
 function LoginFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [credential, setCredential] = useState("");
-  const [password, setPassword] = useState("");
+  const [credential, setCredential] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return <Redirect to="/" />;
@@ -22,7 +23,7 @@ function LoginFormPage() {
       async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-      }
+      },
     );
   };
 
@@ -39,24 +40,27 @@ function LoginFormPage() {
               <li key={idx}>{error}</li>
             ))}
           </ul>
-          <label>
-            Username or Email
-            <input
-              type="text"
-              value={credential}
-              onChange={(e) => setCredential(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
+          <TextField
+            id="loginForm_usernameField"
+            label="Username or Email"
+            variant="outlined"
+            fullWidth
+            size="small"
+            onChange={(e) => setCredential(e.target.value)}
+            required="true"
+            margin="normal"
+          ></TextField>
+          <TextField
+            id="loginForm_passwordField"
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            size="small"
+            onChange={(e) => setPassword(e.target.value)}
+            required="true"
+            margin="normal"
+          ></TextField>
           <button type="submit">Log In</button>
           <h2>
             First time?

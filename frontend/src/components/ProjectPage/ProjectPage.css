@@ -25,7 +25,7 @@
   margin-top: 10px;
   margin-bottom: 20px;
   box-shadow: 1px 2px 3px var(--blue);
-  border: 2px solid var(--lightgray)
+  border: 2px solid var(--lightgray);
 }
 
 .sidebar ul {
@@ -41,7 +41,6 @@
   outline: none;
   border-radius: 0;
 }
-
 
 .sidebar__button__toggled {
   background-color: #e6eefc;
@@ -68,4 +67,4 @@
 ::-webkit-scrollbar-thumb {
   background: var(--lightgray);
   border-radius: 5px;
-} 
+}
